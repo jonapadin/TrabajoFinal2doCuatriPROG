@@ -1,0 +1,12 @@
+{
+  "name": "trabajofinal2docuatriprog",
+  "version": "1.0.0",
+  "description": "Trabajo final segundo cuatrimestre de la materia programación, el ejercicio a realizar es un casino",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
