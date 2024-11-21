@@ -1,18 +1,40 @@
-export class JuegoSlot{
+
+export abstract class JuegoSlot implements Jugar{
     protected nombre:string;
     protected apuestaMinima:number;
 
-    constructor(nombre:string){
-        this.nombre = nombre
+    constructor(nombre:string, apuestaMinima:number){
+        this.nombre = nombre;
+        this.apuestaMinima = apuestaMinima;
     }
-    public iniciarJuego():void{}
-    public realizarApuesta():void{}
-    public mostrarSaldo():void{}
-    //ver el de numero aleatorio.
-    public multiplicador():void{}
-    public instrucciones():void{}
-    public gano():void{}
+
+    public getNombre(): string{
+        return this.nombre; 
+    }
+
+    public setNombre(nombre:string):void{
+        this.nombre= nombre;
+    }
+
+    public getApuestaMinima():number{
+        return this.apuestaMinima; 
+    }
+
+    public setApuestaMinima(apuestaMinima:number):void{
+        this.apuestaMinima= apuestaMinima; 
+    }
+
+    abstract iniciarJuego():void;
+    abstract realizarApuesta():void;
+    abstract mostrarSaldo():void;
+    abstract numeroAleatorio(): void;
+    abstract multiplicador():void;
+    abstract instrucciones():void;
+    abstract gano():void;
+    
     public validarSaldo(saldo:number):number{
         return saldo
     }
+
+    
 }
