@@ -26,7 +26,7 @@ export class Cliente {
         this.edad = edad;
     }
     agregarSaldo() {
-        let saldo = this.saldo
+        let saldo = this.getSaldo()
         if (saldo <= 0) {
             console.log("No tienes saldo para ir a jugar al bingo")
 
