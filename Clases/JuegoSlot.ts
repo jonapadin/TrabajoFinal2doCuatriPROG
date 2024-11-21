@@ -1,5 +1,6 @@
 export class JuegoSlot{
     protected nombre:string;
+    protected apuestaMinima:number;
 
     constructor(nombre:string){
         this.nombre = nombre
