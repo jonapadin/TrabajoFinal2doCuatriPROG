@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es6",           // Or "es2015" or higher
+    "lib": ["es2015", "dom"],   // Make sure es2015 is included
+    "strict": true,             // Optional, but recommended
+    "moduleResolution": "node"  // Optional, if you're using Node.js module resolution
+  }
+}
