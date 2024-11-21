@@ -1,4 +1,4 @@
-import { JuegoSlot } from "./juegoSlot";
+
 export class Tragamonedas {
     private rodillos: number;
     private lineaDePago: number;

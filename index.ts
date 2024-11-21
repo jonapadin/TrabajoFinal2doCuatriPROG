@@ -1,4 +1,5 @@
-import { Tragamonedas } from "./Clases/Tragamoneda";
+import { Tragamonedas } from "./Clases/tragamoneda";
+
 
   // Ejemplo de uso
   const tragamonedas = new Tragamonedas(3, 1); // 3 rodillos, 1 línea de pago
