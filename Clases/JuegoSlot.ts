@@ -1,4 +1,5 @@
 
+
 export abstract class JuegoSlot implements Jugar{
     protected nombre:string;
     protected apuestaMinima:number;
@@ -24,17 +25,22 @@ export abstract class JuegoSlot implements Jugar{
         this.apuestaMinima= apuestaMinima; 
     }
 
+    //METODOS DE LA INTERFACE JUGAR
     abstract iniciarJuego():void;
+    abstract obtenerJugada(): number;
+    abstract retirarse():void;
+    abstract jugar():void
+    
     abstract realizarApuesta():void;
     abstract mostrarSaldo():void;
     abstract numeroAleatorio(): void;
     abstract multiplicador():void;
     abstract instrucciones():void;
     abstract gano():void;
-    
+
+  
     public validarSaldo(saldo:number):number{
         return saldo
     }
 
-    
 }
