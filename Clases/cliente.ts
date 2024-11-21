@@ -7,29 +7,53 @@ export class Cliente {
         this.nombre = nombre;
         this.edad = edad;
         this.saldo = saldo;
-
     }
 
-    getNombre() {
+    getNombre():string {
         return this.nombre
     }
-    getedad() {
+    getedad():number {
         return this.edad
     }
-    getSaldo() {
+    getSaldo(): number {
         return this.saldo
     }
-    setNombre(nombre: string) {
+    setNombre(nombre: string): void {
         this.nombre = nombre;
     }
-    setEdad(edad: number) {
+    setEdad(edad: number): void {
         this.edad = edad;
     }
-    agregarSaldo() {
-        let saldo = this.getSaldo()
-        if (saldo <= 0) {
-            console.log("No tienes saldo para ir a jugar al bingo")
 
+    setSaldo(saldo: number): void {
+        if (saldo < 0) {
+            console.log("El saldo no puede ser negativo.");
+            return;
         }
+        this.saldo = saldo;
+    }
+
+    //Quizas en casino?
+    agregarSaldo(saldo: number): void {
+        if (saldo <= 0) {
+            console.log("El monto para agregar debe ser mayor a cero.");
+            return;
+        }
+        this.setSaldo(this.getSaldo() + saldo);
+        console.log(`Se agregó un saldo de ${saldo}. Saldo actual: ${this.getSaldo()}`);
+    }
+
+    apostar(monto: number): boolean {
+        if (monto <= 0) {
+            console.log("El monto de la apuesta debe ser mayor a cero.");
+            return false;
+        }
+        if (this.getSaldo() < monto) {
+            console.log("No tienes suficiente saldo para realizar esta apuesta.");
+            return false;
+        }
+        this.setSaldo(this.getSaldo() - monto);
+        console.log(`Apuesta de ${monto} realizada. Saldo restante: ${this.getSaldo()}`);
+        return true;
     }
 }

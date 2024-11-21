@@ -1,4 +1,5 @@
-import { JuegoSlot } from "./juegoSlot";
+import { JuegoSlot } from "./JuegoSlot";
+
 
 class Ruleta extends JuegoSlot {
     private numeros: number;
