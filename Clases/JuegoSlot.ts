@@ -42,5 +42,4 @@ export abstract class JuegoSlot implements Jugar{
     public validarSaldo(saldo:number):number{
         return saldo
     }
-
 }
