@@ -1,4 +1,4 @@
-import { JuegoSlot } from "./juegoSlot";
+import { JuegoSlot } from "./JuegoSlot";
 
 class Dado extends JuegoSlot{
     private valorDado:number;

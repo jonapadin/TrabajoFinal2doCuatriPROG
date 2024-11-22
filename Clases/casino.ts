@@ -1,17 +1,17 @@
-import { Cliente } from "./cliente";
 import * as readlineSync from 'readline-sync'
+import { JuegoSlot } from "./JuegoSlot";
+import { Cliente } from './cliente';
 
 
 export class Casino {
     private cliente: Cliente[] = [];
-    private validarEdad: boolean;
-    //private juegos:Juegos[]=[]
+    private validarEdad: number;
+    private juegos:JuegoSlot[]=[]
 
-    constructor(cliente: Cliente[], validadEdad: boolean) {
-        this.cliente = cliente;
+    constructor(validadEdad: number) {
         this.validarEdad = validadEdad;
-
     }
+
     getCliente() {
         return this.cliente;
     }
@@ -36,7 +36,13 @@ export class Casino {
         }
 
     }
-       
+
+    // agregarJuegos():JuegoSlot{
+    //     const ruleta = new Ruleta()
+    // }
+
+    // administrarJuegos():void{
+
+    // }
+      
 }
-
-
