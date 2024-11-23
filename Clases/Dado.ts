@@ -36,6 +36,7 @@ class Dado extends JuegoSlot{
          
      }
      instrucciones(): void {
+       return
          
      }
   

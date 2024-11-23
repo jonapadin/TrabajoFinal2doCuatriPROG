@@ -1,7 +1,7 @@
 import { JuegoSlot } from "./JuegoSlot";
 import { questionInt } from 'readline-sync';
 import * as readlineSync from 'readline-sync'
-import { Cliente } from "./cliente";
+import { Cliente } from "./cliente"
 
 
 
