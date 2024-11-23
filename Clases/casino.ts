@@ -44,5 +44,5 @@ export class Casino {
     // administrarJuegos():void{
 
     // }
-      
+     //agregarCliente(); 
 }

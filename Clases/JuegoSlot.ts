@@ -35,8 +35,8 @@ export abstract class JuegoSlot implements Jugar{
     abstract mostrarSaldo():void;
     // abstract numeroAleatorio(): void;
     abstract multiplicador():void;
-    abstract instrucciones():void;
-
+    abstract instrucciones():string;
+    // abstract montoApuesta():number;//se agrega este metodo para comparar el saldo dle cliente con el que aposto en la maquina
 
   
     public validarSaldo(saldo:number):number{

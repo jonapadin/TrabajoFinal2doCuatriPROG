@@ -2,6 +2,7 @@ export class Cliente {
     private nombre: string;
     private edad: number;
     private saldo: number;
+    
 
     constructor(nombre: string, edad: number, saldo: number) {
         this.nombre = nombre;
@@ -25,13 +26,7 @@ export class Cliente {
         this.edad = edad;
     }
 
-    setSaldo(saldo: number): void {
-        if (saldo < 0) {
-            console.log("El saldo no puede ser negativo.");
-            return;
-        }
-        this.saldo = saldo;
-    }
+
 
     //Quizas en casino?
     agregarSaldo(saldo: number): void {
@@ -39,7 +34,7 @@ export class Cliente {
             console.log("El monto para agregar debe ser mayor a cero.");
             return;
         }
-        this.setSaldo(this.getSaldo() + saldo);
+        (this.getSaldo() + saldo);
         console.log(`Se agregó un saldo de ${saldo}. Saldo actual: ${this.getSaldo()}`);
     }
 
@@ -52,7 +47,7 @@ export class Cliente {
             console.log("No tienes suficiente saldo para realizar esta apuesta.");
             return false;
         }
-        this.setSaldo(this.getSaldo() - monto);
+       (this.getSaldo() - monto);
         console.log(`Apuesta de ${monto} realizada. Saldo restante: ${this.getSaldo()}`);
         return true;
     }
