@@ -1,6 +1,6 @@
-interface Jugar {
+export interface Jugar {
     iniciarJuego():void;
-    obtenerJugada():number;
+    generarResultado():void;
     retirarse():void;
     jugar():void
 }

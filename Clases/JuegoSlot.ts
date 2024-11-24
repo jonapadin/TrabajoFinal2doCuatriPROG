@@ -1,4 +1,4 @@
-
+import { Jugar } from "../Interfaces/Jugar";
 
 export abstract class JuegoSlot implements Jugar{
     protected nombre:string;
@@ -27,16 +27,16 @@ export abstract class JuegoSlot implements Jugar{
 
     //METODOS DE LA INTERFACE JUGAR
     abstract iniciarJuego():void;
-    abstract obtenerJugada(): number;
+    abstract generarResultado(): void;
     abstract retirarse():void;
     abstract jugar():void
     
-    abstract realizarApuesta():void;
+    abstract realizarApuesta():number;
     abstract mostrarSaldo():void;
-    abstract numeroAleatorio(): void;
+    // abstract numeroAleatorio(): void;
     abstract multiplicador():void;
-    abstract instrucciones():void;
-    abstract gano():void;
+    abstract instrucciones():string;
+    // abstract montoApuesta():number;//se agrega este metodo para comparar el saldo dle cliente con el que aposto en la maquina
 
   
     public validarSaldo(saldo:number):number{
