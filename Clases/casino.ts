@@ -1,7 +1,8 @@
 import * as readlineSync from 'readline-sync'
 import { JuegoSlot } from "./JuegoSlot";
-import { Cliente } from './cliente';
-import { read } from 'fs';
+import { Cliente } from './Cliente';
+
+
 
 
 export class Casino {

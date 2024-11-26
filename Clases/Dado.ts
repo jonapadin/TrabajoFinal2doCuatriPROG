@@ -1,6 +1,6 @@
 import { JuegoSlot } from "./JuegoSlot";
 import * as readlineSync from 'readline-sync'
-import { Cliente } from "./cliente";
+import { Cliente } from "./Cliente";
 
 export class Dado extends JuegoSlot{
   
