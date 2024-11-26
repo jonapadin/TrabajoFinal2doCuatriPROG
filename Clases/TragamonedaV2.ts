@@ -1,5 +1,5 @@
 import { Cliente } from "./Cliente";
-import { Tragamoneda } from "./Tragamoneda";
+
 import * as readlineSync from 'readline-sync';
 
 export class TragamonedaFruit extends Tragamoneda {

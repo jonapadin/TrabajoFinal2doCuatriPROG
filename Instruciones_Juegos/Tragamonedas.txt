@@ -1,0 +1,20 @@
+==============================
+ INSTRUCCIONES: TRAGAMONEDAS
+==============================
+
+Descripción:
+Un juego de azar en el que debes girar los rodillos y conseguir combinaciones ganadoras.
+
+Cómo jugar:
+1. Introduce tu apuesta mínima.
+2. Selecciona el número de líneas de pago (entre 1 y 5).
+3. Gira los rodillos presionando "Jugar".
+4. Las combinaciones ganadoras te permiten ganar multiplicadores de apuesta.
+
+Ejemplo de combinaciones ganadoras:
+- Tres símbolos iguales en una línea: x5
+- Tres símbolos diferentes pero del mismo tipo: x3
+
+Nota: Las líneas de pago activadas aumentan las probabilidades de ganar.
+
+¡Buena suerte!

@@ -1,0 +1,22 @@
+===================
+ INSTRUCCIONES: RULETA
+===================
+
+Descripción:
+Apuesta al número o color que creas que saldrá en la ruleta.
+
+Cómo jugar:
+1. Ingresa tu apuesta inicial.
+2. Selecciona tu tipo de apuesta:
+   - Número específico (0-36).
+   - Color: rojo o negro.
+   - Tipo: par o impar.
+3. Gira la ruleta presionando "Jugar".
+4. Si el resultado coincide con tu apuesta, ganas según las probabilidades.
+
+Ejemplo de ganancias:
+- Número exacto: x36
+- Color correcto: x2
+- Par/impar correcto: x2
+
+Nota: Apuesta sabiamente y diviértete girando la ruleta.

@@ -1,6 +1,5 @@
-import * as readlineSync from 'readline-sync'
-
 export class Cliente {
+
     
     private nombre: string;
     private edad: number;

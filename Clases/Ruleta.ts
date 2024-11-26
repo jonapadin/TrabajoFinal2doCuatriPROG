@@ -1,7 +1,7 @@
 import { JuegoSlot } from "./JuegoSlot";
 import { questionInt } from 'readline-sync';
 import * as readlineSync from 'readline-sync'
-import { Cliente } from "./Cliente"
+import { Cliente } from "./Cliente";
 
 
 export class Ruleta extends JuegoSlot {

@@ -1,8 +1,6 @@
 import * as readlineSync from 'readline-sync'
-import { JuegoSlot } from "./JuegoSlot";
 import { Cliente } from './Cliente';
-
-
+import { JuegoSlot } from "./JuegoSlot";
 
 
 export class Casino {
@@ -12,10 +10,8 @@ export class Casino {
     constructor() {
         this.juegos = []; 
         this.cliente = [];
- 
     }
 
-  
     public agregarCliente (cliente:Cliente):void{
         if (cliente.getedad()<18){
             console.log ("Tienes que ser mayor de 18 años para poder entrar"); //valida la edad del cliente

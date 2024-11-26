@@ -1,4 +1,4 @@
-import { Cliente } from "./Cliente";
+import { Cliente } from './Cliente';
 import * as readlineSync from 'readline-sync';
 import { JuegoSlot } from "./JuegoSlot";
 

@@ -1,12 +1,12 @@
 import { JuegoSlot } from "./JuegoSlot";
 import * as readlineSync from 'readline-sync'
-import { Cliente } from "./Cliente";
+import * as Cliente from "./Cliente";
 
 export class Dado extends JuegoSlot{
   
-    private cliente: Cliente; //agrego...
+    private cliente: Cliente.Cliente; //agrego...
 
-    constructor ( cliente:Cliente){
+    constructor ( cliente:Cliente.Cliente){
         super("da2",250)
         this.cliente = cliente; //agrego
     }
