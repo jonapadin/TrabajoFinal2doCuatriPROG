@@ -98,9 +98,23 @@ export class TragamonedaFruit extends Tragamoneda {
 
 
     instrucciones(): string {
-        return "¡Bienvenido a Fruit King! Para jugar, realiza una apuesta y espera los resultados. Si obtienes tres símbolos iguales, ¡ganas un premio mayor! Si tienes dos iguales, ganas parcialmente. ¡Buena suerte!";
+        return `¡Bienvenido a Fruit King! 
+        Para jugar, primero debes realizar una apuesta.
+        Luego, la máquina generará una combinación aleatoria de tres símbolos. 
+        Los símbolos posibles son:
+        - Fresa
+        - Limón
+        - Sandía
+    
+        Si obtienes tres símbolos iguales, ganarás un premio:
+        - **3 Fresas**: Premio **Major** (ganas 5 veces tu apuesta).
+        - **3 Limones**: Premio **Mini** (ganas 2 veces tu apuesta).
+        - **3 Sandías**: Premio **Jackpot** (ganas 10 veces tu apuesta).
+    
+        Si no obtienes tres símbolos iguales, no ganarás esta vez.
+    
+        ¡Buena suerte y que disfrutes el juego!`;
     }
-
 
     jugar(): void {
         let seguirJugando = true;
