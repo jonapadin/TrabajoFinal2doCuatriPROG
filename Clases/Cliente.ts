@@ -3,12 +3,15 @@ export class Cliente {
     
     private nombre: string;
     private edad: number;
-    private saldo: number;
+    private dni:string;
+    private saldo: number ;
     
-    constructor(nombre: string, edad: number, saldo: number) {
+    
+    constructor(nombre: string, edad: number,dni:string, saldo?: number) {
         this.nombre = nombre;
         this.edad = edad;
-        this.saldo = saldo;
+        this.dni=dni;
+        this.saldo = saldo ?? 0;
     }
 
     getNombre():string {

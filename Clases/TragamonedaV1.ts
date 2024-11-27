@@ -1,8 +1,9 @@
 import { Cliente } from './Cliente';
 import * as readlineSync from 'readline-sync';
 import { JuegoSlot } from "./JuegoSlot";
+import { Tragamoneda } from './Tragamoneda';
 
-export class TragamonedaLucky extends JuegoSlot {
+export class TragamonedaLucky extends Tragamoneda {
 
     private valor1: number;
     private valor2: number;
@@ -11,7 +12,7 @@ export class TragamonedaLucky extends JuegoSlot {
     private cliente: Cliente; 
 
     constructor(cliente: Cliente) {
-        super("Lucky Slot", 100); // Nombre del juego y apuesta mínima
+        super("Lucky Slot", 100, 1500); // Nombre del juego y apuesta mínima
         this.valor1 = 0;
         this.valor2 = 0;
         this.valor3 = 0;
