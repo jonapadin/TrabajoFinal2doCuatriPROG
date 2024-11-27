@@ -3,6 +3,7 @@ import * as readlineSync from 'readline-sync';
 import { Cliente } from "./Clases/Cliente";
 import * as fs from 'fs';
 
+
 let casino = new Casino
 export function menuPrincipal() {
     console.log("**********************************************************")
@@ -34,7 +35,10 @@ function menuRegistro() {
     registrarCliente(nombreUsuario,edad,dni);
 
 }
-function menuIniciarSesion() { }
+function menuIniciarSesion() { 
+    let dniUsuario = readlineSync.question("Ingrese su DNI para iniciar sesion: ")
+    seleccionarUsuario(dniUsuario);
+ }
 
 function validacionCampo(nombreUsuario: string, edad: number, dni: string) {
     if (nombreUsuario === "") {
@@ -73,3 +77,30 @@ function guardarEnArchivo(nombreArchivo: string, datos: any[]): void {
 }
 
 
+function seleccionarUsuario(dni: string) {
+    try {
+        // Leer el archivo de manera sincrónica
+        const data = fs.readFileSync('cliente.txt', 'utf-8');
+
+        // Parsear los datos a JSON
+        const clienteTxt: { nombre: string; edad: number; dni: string }[] = JSON.parse(data);
+
+        // Mapear a instancias de Cliente
+        const clientes: Cliente[] = clienteTxt.map(
+            (cliente) => new Cliente(cliente.nombre, cliente.edad, cliente.dni)
+        );
+
+        // Buscar el cliente por DNI
+        const cliente = clientes.find((v) => v.getDni() === dni);
+
+        if (cliente) {
+            console.log(`Bienvenido de nuevo, ${cliente.getNombre()}!`);
+            // Aquí puedes redirigir al menú principal del casino para clientes registrados
+            casino.menu(cliente); // Asegúrate de tener implementado este método en Casino
+        } else {
+            console.log("No existe un usuario con ese DNI.");
+        }
+    } catch (err) {
+        console.error("Hubo un error al leer el archivo:", err);
+    }
+}

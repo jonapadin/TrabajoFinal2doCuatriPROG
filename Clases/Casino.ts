@@ -22,7 +22,7 @@ export class Casino {
     }
 
     public agregarCliente (cliente:Cliente):void{
-        if (cliente.getedad()<18){
+        if (cliente.getEdad()<18){
             console.log ("Tienes que ser mayor de 18 años para poder entrar"); //valida la edad del cliente
         }else{
             this.cliente.push(cliente); 

@@ -17,8 +17,12 @@ export class Cliente {
     getNombre():string {
         return this.nombre
     }
-    getedad():number {
+    getEdad():number {
         return this.edad
+    }
+
+    getDni():string {
+        return this.dni
     }
 
     getSaldo(): number {
