@@ -6,10 +6,19 @@ import { JuegoSlot } from "./JuegoSlot";
 export class Casino {
     private cliente: Cliente[];
     private juegos:JuegoSlot[];
+    private nombre : string;
 
     constructor() {
         this.juegos = []; 
         this.cliente = [];
+        this.nombre = "BinBaires"
+    }
+
+    getNombre():string{
+        return this.nombre
+    }
+    getCliente (){
+        return this.cliente
     }
 
     public agregarCliente (cliente:Cliente):void{
