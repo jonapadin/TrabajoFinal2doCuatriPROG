@@ -10,8 +10,8 @@ export class TragamonedaFruit extends Tragamoneda {
     private valoresPosibles: string [];
     private cliente: Cliente;
 
-    constructor(apuestaMinima: number, cliente: Cliente, saldoInicial:number) {
-        super("Fruit King",apuestaMinima,saldoInicial);
+    constructor(cliente: Cliente) {
+        super("Fruit King",100,1500);
         this.valor1 = "";
         this.valor2 = "";
         this.valor3 = "";

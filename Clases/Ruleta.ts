@@ -36,7 +36,6 @@ export class Ruleta extends JuegoSlot {
     }
 
     jugar(): void {
-        console.clear(); 
         let seguirJugando = true; 
 
         while(seguirJugando){

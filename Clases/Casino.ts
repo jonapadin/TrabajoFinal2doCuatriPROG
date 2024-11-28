@@ -1,7 +1,7 @@
-import * as readlineSync from 'readline-sync'
+
 import { Cliente } from './Cliente';
 import { JuegoSlot } from "./JuegoSlot";
-import { elegirJuegos, leerInstruccionesDado } from '../MenuCasino';
+
 
 export class Casino {
     private cliente: Cliente[];
@@ -36,5 +36,6 @@ export class Casino {
         console.log ("El juego : ", juego.getNombre(), `fue agregado al casino`); 
     }
     
+
 
 }

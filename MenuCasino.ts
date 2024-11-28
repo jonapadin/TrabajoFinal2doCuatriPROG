@@ -1,9 +1,7 @@
-import { Casino } from "./Clases/Casino"
 import * as readlineSync from 'readline-sync';
-import { Cliente } from "./Clases/Cliente";
 import * as fs from 'fs';
-import { resolve } from "path";
-import { readFile } from "fs/promises";
+import { Casino, Cliente,Ruleta,TragamonedaFruit,TragamonedaLucky,Dado } from './Clases';
+
 
 let casino = new Casino
 export function menuPrincipal() {
@@ -137,7 +135,7 @@ function menu(cliente:Cliente): void{
         cliente.agregarSaldo(recargaSaldo);
             break
         case "2":
-            elegirJuegos();
+            elegirJuegos(cliente);
             break
         case "3":
             menuInstrucciones(cliente);
@@ -147,9 +145,70 @@ function menu(cliente:Cliente): void{
     menu(cliente);
 }
 
-export function elegirJuegos(){
-    console.log("Juegos")
+export function elegirJuegos(cliente:Cliente){
+   crearJuegos(cliente)
 }
+
+export function crearJuegos(cliente:Cliente){
+
+    console.log(`1. Iniciar Ruleta `);
+    console.log(`2. Iniciar Dado`);
+    console.log(`3. Iniciar Tragamoneda Fruit`);
+    console.log(`4. Iniciar Tragamoneda Lucky`);
+    console.log(`5. volver`);
+
+    const opcion = readlineSync.question("Seleccione un juego: "); 
+
+    switch(opcion){
+        case "1":
+            crearRuleta(cliente);
+            break
+        case "2":
+            crearDado(cliente);
+            break
+            case "3":
+                crearTragamonedaFruit(cliente);
+                break
+            case "4":
+                crearTragamonedaLucky(cliente);
+                break
+        case "0":
+            menu(cliente);
+            break
+        default:
+            "Operacion no valida"   
+    }
+    crearJuegos(cliente);
+}
+
+export function crearRuleta(cliente:Cliente){
+    const ruleta = new Ruleta(cliente)
+    casino.agregarJuegos(ruleta)
+    ruleta.iniciarJuego()
+    ruleta.jugar();
+}
+
+export function crearDado(cliente:Cliente){
+    const dado = new Dado(cliente)
+    casino.agregarJuegos(dado)
+    dado.iniciarJuego()
+    dado.jugar();
+}
+
+export function crearTragamonedaLucky(cliente:Cliente){
+    const tragamoneda = new TragamonedaLucky (cliente)
+    casino.agregarJuegos(tragamoneda)
+    tragamoneda.iniciarJuego()
+    tragamoneda.jugar();
+}
+
+export function crearTragamonedaFruit(cliente:Cliente){
+    const tragamoneda = new TragamonedaFruit(cliente)
+    casino.agregarJuegos(tragamoneda)
+    tragamoneda.iniciarJuego()
+    tragamoneda.jugar();
+}
+
 
 export function menuInstrucciones(cliente:Cliente){
     console.log(`1. Instrucciones juego: Dado `);
