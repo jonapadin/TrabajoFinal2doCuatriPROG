@@ -3,7 +3,6 @@ import * as readlineSync from 'readline-sync';
 import { Cliente } from "./Clases/Cliente";
 import * as fs from 'fs';
 
-
 let casino = new Casino
 export function menuPrincipal() {
     console.log("**********************************************************")
@@ -50,7 +49,7 @@ function validacionCampo(nombreUsuario: string, edad: number, dni: string) {
         return
     }
     if (edad < 18) {
-        console.log("Usted no puede jugar, ya qye es menor de 18 años")
+        console.log("Usted no puede jugar, ya que es menor de 18 años")
         return
     }
   
@@ -62,6 +61,7 @@ function registrarCliente(nombreUsuario:string,edad:number,dni:string){
     console.log ("Cliente agregado con Exito")
     guardarEnArchivo("cliente.txt", casino.getCliente())
 }
+
 function guardarEnArchivo(nombreArchivo: string, datos: any[]): void {
     try {
         // Convertir los datos a formato JSON
@@ -94,13 +94,35 @@ function seleccionarUsuario(dni: string) {
         const cliente = clientes.find((v) => v.getDni() === dni);
 
         if (cliente) {
-            console.log(`Bienvenido de nuevo, ${cliente.getNombre()}!`);
+            console.log(`Bienvenido ${cliente.getNombre()} seras redirigido al casino!`);
             // Aquí puedes redirigir al menú principal del casino para clientes registrados
             casino.menu(cliente); // Asegúrate de tener implementado este método en Casino
+            
         } else {
             console.log("No existe un usuario con ese DNI.");
         }
+        
     } catch (err) {
         console.error("Hubo un error al leer el archivo:", err);
     }
+}
+
+export function elegirJuegos(){
+    console.log("Juegos")
+}
+
+export function menuInstrucciones(){
+
+}
+
+
+export function leerInstruccionesDado(){
+    fs.readFile("Ruleta.txt", "utf-8", (err,data)=>{
+        if(data){
+            console.log(data);
+        } else if(err){
+            console.log(err);
+            
+        }     
+    })
 }

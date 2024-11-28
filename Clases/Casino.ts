@@ -1,7 +1,7 @@
 import * as readlineSync from 'readline-sync'
 import { Cliente } from './Cliente';
 import { JuegoSlot } from "./JuegoSlot";
-
+import { elegirJuegos, leerInstruccionesDado } from '../MenuCasino';
 
 export class Casino {
     private cliente: Cliente[];
@@ -43,40 +43,38 @@ export class Casino {
         while (seguirEnMenu){
 
             
-            console.log("**********************************************************"); 
-            console.log (`Bienvenido al CASINO ! , Selecciona un juego :  `, cliente.getNombre()); 
-            console.log("**********************************************************"); 
+            console.log("******************************************************************************"); 
+            console.log (`Bienvenido ${cliente.getNombre()} a el casino: ${this.nombre} !. Tu saldo actual es de: ${cliente.getSaldo()}`); 
+            console.log("******************************************************************************"); 
 
             //Mostrar juegos
             this.juegos.forEach((JuegoSlot, index) => {
                 console.log (`${index + 1}.` , JuegoSlot.getNombre(), "- Costo: ", JuegoSlot.getApuestaMinima());
             });
-            console.log(`${this.juegos.length + 1}. Agregar Saldo `);
+            console.log(`1. Agregar Saldo `);
+            console.log(`2. Seleccionar juegos`);
+            console.log(`3. Ver Instrucciones`);
+            console.log(`4. Retirar dinero`);
+            console.log(`5. Cerrar sesion`);
 
-            console.log("---------------------------------------------------"); 
-
+            console.log("-----------------------------------------------------------------"); 
             //Leer opcion del cliente
             const opcion = readlineSync.questionInt("Elige una opcion: "); 
 
-            //Validar la opcion
-            if (opcion > 0 && opcion <= this.juegos.length){
-                const juegoSeleccionado = this.juegos[opcion-1];
-               juegoSeleccionado.jugar();  
+            switch(opcion){
+                case 1:
+                //Opcion de recarga
+                const recargaSaldo = readlineSync.questionInt("Cuanto dinero desea ingresar a su cuenta?: "); 
+                cliente.agregarSaldo(recargaSaldo);
+                    break
+                case 2:
+                    elegirJuegos();
+                    break
+                case 3:
+                    leerInstruccionesDado();
+                    break
+                default: console.log("Eliga una opcion valida")
             }
-
-            //Opcion de recarga
-            if (opcion === this.juegos.length+1){
-                const recargaSaldo = readlineSync.questionInt("Cuanto dinero desea ingresar a su cuenta ?"); 
-                cliente.agregarSaldo(recargaSaldo); 
-            }
-
         }
     }
-
-
 }
-
-    // administrarJuegos():void{
-
-    // }
-  

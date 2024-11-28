@@ -1,4 +1,5 @@
 import { Casino } from "./Clases/Casino";
-import { menuPrincipal } from "./MenuCasino";
+import { leerInstruccionesDado, menuPrincipal } from "./MenuCasino";
 
-menuPrincipal()
+
+menuPrincipal()  
