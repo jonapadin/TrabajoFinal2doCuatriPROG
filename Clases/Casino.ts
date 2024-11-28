@@ -36,45 +36,5 @@ export class Casino {
         console.log ("El juego : ", juego.getNombre(), `fue agregado al casino`); 
     }
     
-    public menu(cliente:Cliente): void{
 
-        let seguirEnMenu = true;
-
-        while (seguirEnMenu){
-
-            
-            console.log("******************************************************************************"); 
-            console.log (`Bienvenido ${cliente.getNombre()} a el casino: ${this.nombre} !. Tu saldo actual es de: ${cliente.getSaldo()}`); 
-            console.log("******************************************************************************"); 
-
-            //Mostrar juegos
-            this.juegos.forEach((JuegoSlot, index) => {
-                console.log (`${index + 1}.` , JuegoSlot.getNombre(), "- Costo: ", JuegoSlot.getApuestaMinima());
-            });
-            console.log(`1. Agregar Saldo `);
-            console.log(`2. Seleccionar juegos`);
-            console.log(`3. Ver Instrucciones`);
-            console.log(`4. Retirar dinero`);
-            console.log(`5. Cerrar sesion`);
-
-            console.log("-----------------------------------------------------------------"); 
-            //Leer opcion del cliente
-            const opcion = readlineSync.questionInt("Elige una opcion: "); 
-
-            switch(opcion){
-                case 1:
-                //Opcion de recarga
-                const recargaSaldo = readlineSync.questionInt("Cuanto dinero desea ingresar a su cuenta?: "); 
-                cliente.agregarSaldo(recargaSaldo);
-                    break
-                case 2:
-                    elegirJuegos();
-                    break
-                case 3:
-                    leerInstruccionesDado();
-                    break
-                default: console.log("Eliga una opcion valida")
-            }
-        }
-    }
 }

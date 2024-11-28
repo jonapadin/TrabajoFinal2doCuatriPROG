@@ -2,6 +2,8 @@ import { Casino } from "./Clases/Casino"
 import * as readlineSync from 'readline-sync';
 import { Cliente } from "./Clases/Cliente";
 import * as fs from 'fs';
+import { resolve } from "path";
+import { readFile } from "fs/promises";
 
 let casino = new Casino
 export function menuPrincipal() {
@@ -11,19 +13,23 @@ export function menuPrincipal() {
     console.log("1- Registrarse")
     console.log("2- Iniciar Sesion")
     console.log("0- Salir")
-    let opcion = readlineSync.questionInt("elija una opcion:")
-    if (opcion === 1) {
-        menuRegistro()
-    }
-    if (opcion === 2) {
-        menuIniciarSesion()
-    }
-    if (opcion === 0) {
+    let opcion = readlineSync.question("elija una opcion:")
+    
+    switch(opcion) {
+        case "1": 
+        menuRegistro();
+        break;
+        case "2":
+            menuIniciarSesion();
+        break;
+        case "0": 
         return
-    } else {
-
-        menuPrincipal()
+        default:
+            console.log("Operacion no valida")
+            menuPrincipal();
     }
+
+
 }
 
 function menuRegistro() {
@@ -96,7 +102,7 @@ function seleccionarUsuario(dni: string) {
         if (cliente) {
             console.log(`Bienvenido ${cliente.getNombre()} seras redirigido al casino!`);
             // Aquí puedes redirigir al menú principal del casino para clientes registrados
-            casino.menu(cliente); // Asegúrate de tener implementado este método en Casino
+        menu(cliente); // Asegúrate de tener implementado este método en Casino
             
         } else {
             console.log("No existe un usuario con ese DNI.");
@@ -107,22 +113,106 @@ function seleccionarUsuario(dni: string) {
     }
 }
 
+
+function menu(cliente:Cliente): void{
+
+    console.log("******************************************************************************"); 
+    console.log (`Bienvenido ${cliente.getNombre()} a el casino: ${casino.getNombre()} !. Tu saldo actual es de: ${cliente.getSaldo()}`); 
+    console.log("******************************************************************************"); 
+
+    console.log(`1. Agregar Saldo `);
+    console.log(`2. Seleccionar juegos`);
+    console.log(`3. Ver Instrucciones`);
+    console.log(`4. Retirar dinero`);
+    console.log(`5. Cerrar sesion`);
+
+    console.log("-----------------------------------------------------------------"); 
+    //Leer opcion del cliente
+    const opcion = readlineSync.question("Elige una opcion: "); 
+
+    switch(opcion){
+        case "1":
+        //Opcion de recarga
+        const recargaSaldo = readlineSync.questionInt("Cuanto dinero desea ingresar a su cuenta?: "); 
+        cliente.agregarSaldo(recargaSaldo);
+            break
+        case "2":
+            elegirJuegos();
+            break
+        case "3":
+            menuInstrucciones(cliente);
+            break
+        default: console.log("Eliga una opcion valida")
+    }
+    menu(cliente);
+}
+
 export function elegirJuegos(){
     console.log("Juegos")
 }
 
-export function menuInstrucciones(){
+export function menuInstrucciones(cliente:Cliente){
+    console.log(`1. Instrucciones juego: Dado `);
+    console.log(`2. Instrucciones juego: Ruleta`);
+    console.log(`3. Instrucciones juegos: Tragamonedas`);
+    console.log(`4. volver`);
 
+
+    const opcion = readlineSync.question("Elige una opcion: "); 
+    
+    switch(opcion){
+        case "1":
+            leerInstruccionesDado();
+        break;
+        case "2":
+            leerInstruccionesRuleta();
+        break;
+        case "3":
+            leerInstruccionesTragamonedas();
+           break;
+         case "4": 
+         menu(cliente) 
+         break
+         default:
+            console.log("Operacion no valida")
+          
+    }
+    menuInstrucciones(cliente);
 }
 
+export const leerInstruccionesDado = () => {
+    try {
+        // Leemos el archivo veterinarias.txt de forma síncrona
+        const data = fs.readFileSync('dado.txt', 'utf-8');
 
-export function leerInstruccionesDado(){
-    fs.readFile("Ruleta.txt", "utf-8", (err,data)=>{
-        if(data){
-            console.log(data);
-        } else if(err){
-            console.log(err);
-            
-        }     
-    })
-}
+        console.log(data)
+
+    } catch (err) {
+        console.error('Error al leer o parsear el archivo veterinarias.txt:', err);
+    }
+};
+
+export const leerInstruccionesRuleta = () => {
+    try {
+        // Leemos el archivo veterinarias.txt de forma síncrona
+        const data = fs.readFileSync('ruleta.txt', 'utf-8');
+
+        console.log(data)
+
+    } catch (err) {
+        console.error('Error al leer o parsear el archivo veterinarias.txt:', err);
+    }
+};
+
+export const leerInstruccionesTragamonedas = () => {
+    try {
+        // Leemos el archivo veterinarias.txt de forma síncrona
+        const data = fs.readFileSync('tragamonedas.txt', 'utf-8');
+
+        console.log(data)
+
+    } catch (err) {
+        console.error('Error al leer o parsear el archivo veterinarias.txt:', err);
+    }
+};
+
