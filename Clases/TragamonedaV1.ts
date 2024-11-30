@@ -1,7 +1,7 @@
 import { Cliente } from './Cliente';
 import * as readlineSync from 'readline-sync';
-import { JuegoSlot } from "./JuegoSlot";
 import { Tragamoneda } from './Tragamoneda';
+import * as fs from 'fs';
 
 export class TragamonedaLucky extends Tragamoneda {
 
@@ -9,17 +9,18 @@ export class TragamonedaLucky extends Tragamoneda {
     private valor2: number;
     private valor3: number;
     private valoresPosibles: number[];
-    private cliente: Cliente; 
+    private cliente?: Cliente; 
 
-    constructor(cliente: Cliente) {
+    constructor() {
         super("Lucky Slot", 100, 1500); // Nombre del juego y apuesta mínima
         this.valor1 = 0;
         this.valor2 = 0;
         this.valor3 = 0;
         // Números del 1 al 10, pero el valor 7 tiene más probabilidades de salir
         this.valoresPosibles = [1, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 10];
-        this.cliente = cliente; // Asignar cliente
     }
+
+
 
     // Método para verificar si el valor ingresado es parte de una combinación ganadora
     juegoGanador(): boolean {
@@ -27,8 +28,8 @@ export class TragamonedaLucky extends Tragamoneda {
         
         if (this.valor1 === apuesta && this.valor2 === apuesta && this.valor3 === apuesta) {
             console.log(`¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
-            const ganancia = this.cliente.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
-            console.log(`Tu saldo es ahora: ${this.cliente.getSaldo()}`);
+            const ganancia = this.cliente?.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
+            console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
             return true; 
         }
 
@@ -41,15 +42,15 @@ export class TragamonedaLucky extends Tragamoneda {
         // Si al menos dos rodillos tienen el valor, es victoria parcial
         if (contador >= 1) {
             console.log(`¡Has ganado parcialmente! El valor ${apuesta} aparece en ${contador} rodillo(s).`);
-            this.cliente.apostar(this.apuestaMinima); // Descuenta la apuesta
-            console.log(`Tu saldo es ahora: ${this.cliente.getSaldo()}`);
+            this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
+            console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
             return true; 
         }
 
         
         console.log(`Lo siento, el valor ${apuesta} no está en la combinación.`);
-        this.cliente.apostar(this.apuestaMinima); // Descuenta la apuesta
-        console.log(`Tu saldo es ahora: ${this.cliente.getSaldo()}`);
+        this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
+        console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
         return false;
     }
 
@@ -102,9 +103,7 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
 
-    mostrarSaldo(): void {
-        console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
-    }
+    mostrarSaldo(): void {}
 
 
     multiplicador(): void {
@@ -113,7 +112,14 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
 
-    instrucciones(): string {
-        return "Bienvenido a Lucky Slot! Apuesta un número entre 1 y 10 y trata de obtener una combinación ganadora. ¡Buena suerte!";
+    leerInstrucciones(): void {
+        try {
+            const data = fs.readFileSync('tragamonedas.txt', 'utf-8');
+    
+            console.log(data)
+    
+        } catch (err) {
+            console.error('Error al leer o parsear el archivo tragamoneda.txt:', err);
+        }
     }
 }

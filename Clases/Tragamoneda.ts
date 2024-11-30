@@ -53,8 +53,8 @@ export class Tragamoneda extends JuegoSlot {
         console.log("Multiplicador de la jugada: " + multiplicador);
     }
 
-    instrucciones(): string {
-        return "Las instrucciones del juego de tragamonedas son: Apuesta para jugar y gana premios según el resultado.";
+    leerInstrucciones(): void {
+        console.log("instrucciones")
     }
 
 

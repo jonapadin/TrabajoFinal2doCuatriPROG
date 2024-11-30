@@ -1,23 +1,25 @@
 import { Cliente } from "./Cliente";
-
 import * as readlineSync from 'readline-sync';
 import { Tragamoneda } from "./Tragamoneda";
+import * as fs from 'fs';
 
 export class TragamonedaFruit extends Tragamoneda {
     private valor1: string;
     private valor2: string;
     private valor3: string;
     private valoresPosibles: string [];
-    private cliente: Cliente;
+    private cliente?: Cliente;
 
-    constructor(cliente: Cliente) {
+    constructor() {
         super("Fruit King",100,1500);
         this.valor1 = "";
         this.valor2 = "";
         this.valor3 = "";
-        this.cliente = cliente;
         this.valoresPosibles = ["Fresa","Limon","Sandia"];
     }
+
+
+
 
     iniciarJuego(): void {
         console.log(`Estas iniciando el juego ${this.getNombre()}`);
@@ -39,13 +41,14 @@ export class TragamonedaFruit extends Tragamoneda {
 
     realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese apuesta:");
-
-        if(apuesta > this.cliente.getSaldo()){
-            console.log("Saldo insuficiente!");
-            return this.realizarApuesta();            
-        } else if (apuesta < this.apuestaMinima) {
-            console.log(`La apuesta minima es de ${this.apuestaMinima}`);
-            return this.realizarApuesta();
+        if(this.cliente) {            
+            if(apuesta > this.cliente.getSaldo()){
+                console.log("Saldo insuficiente!");
+                return this.realizarApuesta();            
+            } else if (apuesta < this.apuestaMinima) {
+                console.log(`La apuesta minima es de ${this.apuestaMinima}`);
+                return this.realizarApuesta();
+            }
         }
 
         console.log(`Apuesta aceptada: ${apuesta}`);
@@ -61,30 +64,30 @@ export class TragamonedaFruit extends Tragamoneda {
 
             if (this.valor1 === "Fresa") {
                 console.log("¡Ganaste el premio Major con 3 Fresas!");
-                this.cliente.agregarSaldo(this.apuestaMinima * 5); 
-                console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
+                this.cliente?.agregarSaldo(this.apuestaMinima * 5); 
+                console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
             else if (this.valor1 === "Limón") {
                 console.log("¡Ganaste el premio Mini con 3 Limones!");
-                this.cliente.agregarSaldo(this.apuestaMinima * 2); 
-                console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
+                this.cliente?.agregarSaldo(this.apuestaMinima * 2); 
+                console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
             else if (this.valor1 === "Sandía") {
                 console.log("¡Ganaste el Jackpot con 3 Sandías!");
-                this.cliente.agregarSaldo(this.apuestaMinima * 10); 
-                console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
+                this.cliente?.agregarSaldo(this.apuestaMinima * 10); 
+                console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
         }
     
 
         console.log("Lo siento, no has ganado esta vez.");
-        this.cliente.apostar(this.apuestaMinima);
-        console.log(`Tu saldo es ahora: ${this.cliente.getSaldo()}`);
+        this.cliente?.apostar(this.apuestaMinima);
+        console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
         return false; 
     }
 
@@ -94,28 +97,14 @@ export class TragamonedaFruit extends Tragamoneda {
 
 
     mostrarSaldo(): void {
-        console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
+        console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
+    }
+
+    leerInstrucciones(): void {
+
     }
 
 
-    instrucciones(): string {
-        return `¡Bienvenido a Fruit King! 
-        Para jugar, primero debes realizar una apuesta.
-        Luego, la máquina generará una combinación aleatoria de tres símbolos. 
-        Los símbolos posibles son:
-        - Fresa
-        - Limón
-        - Sandía
-    
-        Si obtienes tres símbolos iguales, ganarás un premio:
-        - **3 Fresas**: Premio **Major** (ganas 5 veces tu apuesta).
-        - **3 Limones**: Premio **Mini** (ganas 2 veces tu apuesta).
-        - **3 Sandías**: Premio **Jackpot** (ganas 10 veces tu apuesta).
-    
-        Si no obtienes tres símbolos iguales, no ganarás esta vez.
-    
-        ¡Buena suerte y que disfrutes el juego!`;
-    }
 
     jugar(): void {
         let seguirJugando = true;

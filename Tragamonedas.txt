@@ -2,7 +2,7 @@
  INSTRUCCIONES: TRAGAMONEDAS
 ==============================
 
-Descripción:
+Tragamonedas Lucky Descripción:
 Un juego de azar en el que debes girar los rodillos y conseguir combinaciones ganadoras.
 
 Cómo jugar:
@@ -18,3 +18,21 @@ Ejemplo de combinaciones ganadoras:
 Nota: Las líneas de pago activadas aumentan las probabilidades de ganar.
 
 ¡Buena suerte!
+
+
+¡Bienvenido a Fruit King! 
+ Para jugar, primero debes realizar una apuesta.
+ Luego, la máquina generará una combinación aleatoria de tres símbolos. 
+  Los símbolos posibles son:
+    - Fresa
+    - Limón
+    - Sandía
+    
+ Si obtienes tres símbolos iguales, ganarás un premio:
+    - **3 Fresas**: Premio **Major** (ganas 5 veces tu apuesta).
+    - **3 Limones**: Premio **Mini** (ganas 2 veces tu apuesta).
+    - **3 Sandías**: Premio **Jackpot** (ganas 10 veces tu apuesta).
+    
+    Si no obtienes tres símbolos iguales, no ganarás esta vez.
+    
+    ¡Buena suerte y que disfrutes el juego!

@@ -1,7 +1,8 @@
 import { JuegoSlot } from "./JuegoSlot";
-import { questionInt } from 'readline-sync';
 import * as readlineSync from 'readline-sync'
 import { Cliente } from "./Cliente";
+import * as fs from 'fs';
+
 
 
 export class Ruleta extends JuegoSlot {
@@ -9,13 +10,13 @@ export class Ruleta extends JuegoSlot {
     private numerosRojos: number[] = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
     private numerosNegros: number[] = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 29, 31, 33, 35];
     private numeroVerde: number = 0;
-    private cliente: Cliente
+    private cliente?:Cliente;
 
-    constructor(cliente: Cliente) {
+    constructor() {
         super("Ruleta Smash", 250)
-        this.cliente = cliente
     }
 
+    
 
     public girarRuleta(): number {
         this.bola = Math.floor(Math.random() * 2);
@@ -55,27 +56,28 @@ export class Ruleta extends JuegoSlot {
         
         if (apuesta === resultadoRuleta) {
             console.log("Fue tu jugada GANADORA!")
-            const ganancia = this.cliente.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
+            const ganancia = this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
         } else {
             console.log("PERDISTE :(")
-            const perdida = this.cliente.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
+            const perdida = this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
         }
     }
 
-    retirarse(): void {
+    retirarse(): void {}
 
-    }
+    mostrarSaldo(): void {}
 
-    mostrarSaldo(): void {
-       console.log (this.cliente.getSaldo())
-    }
+    multiplicador(): void {}
 
-    instrucciones(): string {
-        return "HOlu"
-    }
-
-    multiplicador(): void {
-
+    leerInstrucciones(): void {
+        try {
+            const data = fs.readFileSync('ruleta.txt', 'utf-8');
+    
+            console.log(data)
+    
+        } catch (err) {
+            console.error('Error al leer o parsear el archivo ruleta.txt:', err);
+        }
     }
 
     realizarApuesta(): number {
@@ -91,4 +93,3 @@ export class Ruleta extends JuegoSlot {
     }
 }
 
-//hay que corregir el saldo cuando imprime en consola.

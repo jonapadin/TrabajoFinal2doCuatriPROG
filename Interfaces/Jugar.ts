@@ -3,4 +3,5 @@ export interface Jugar {
     generarResultado():void;
     retirarse():void;
     jugar():void
+    leerInstrucciones():void;
 }

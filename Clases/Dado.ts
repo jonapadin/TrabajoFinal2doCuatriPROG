@@ -1,15 +1,17 @@
 import { JuegoSlot } from "./JuegoSlot";
 import * as readlineSync from 'readline-sync'
-import * as Cliente from "./Cliente";
+import * as fs from 'fs';
+import { Cliente } from "./Cliente";
 
 export class Dado extends JuegoSlot{
   
-    private cliente: Cliente.Cliente; //agrego...
+    private cliente?: Cliente;
 
-    constructor ( cliente:Cliente.Cliente){
+    constructor (){
         super("da2",250)
-        this.cliente = cliente; //agrego
     }
+
+
 
     public combinacionGanadora(){
       
@@ -22,44 +24,36 @@ export class Dado extends JuegoSlot{
       console.log (`El resultado es: ${resultado}`);
       if (apuesta === resultado){
           console.log ("Felicitaciones! usted gano ..."); 
-          const ganancia = this.cliente.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
+          const ganancia = this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
       }else{
           console.log ("Perdio..."); 
-          const perdida = this.cliente.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
+          const perdida = this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
       }
      }
+
+
      
      iniciarJuego(): void {
          console.log (`El juego ${this.nombre} se esta iniciando...`);
      }
 
-     generarResultado(): void {
-    
-     }
-     retirarse(): void {
-         
-     }
+     generarResultado(): void {}
+     retirarse(): void {}
      
      realizarApuesta(): number {
       let opcion = readlineSync.questionInt("Debe elegir un numero del 1 al 6: "); 
       return opcion; 
      }
 
-     mostrarSaldo(): void {
-      console.log (this.cliente.getSaldo());
-     }
+     mostrarSaldo(): void {}
 
-    //  numeroAleatorio(): void {
-         
-    //  }
+
      multiplicador(): void {
          
      }
-     instrucciones(): string{
-       return "hola"; 
-         
-     }
-     
+    leerInstrucciones(): void {
+
+    }
       
     public jugar(): void {    
       let seguirJugando = true; 
