@@ -54,20 +54,29 @@ export class Ruleta extends Maquina {
        let opcion = readlineSync.questionInt("Seleccione Apuesta: ")
        switch(opcion) {
             case 1:
-                let cantidadNumeros= readlineSync.questionInt("Ingrese cuantos numeros quiere apostar: ");
+                let cantidadNumeros:number = readlineSync.questionInt("Ingrese cuantos numeros quiere apostar: ");
+                let comparador:number  = cantidadNumeros * this.apuestaMinima;
+                console.log(comparador);
+                console.log(`${this.cliente?.getSaldo()}`)
+              if(this.cliente) {
+                console.log(comparador > this.cliente.getSaldo());
+                if(comparador > this.cliente.getSaldo()){
+                    for(let i = 0; i < cantidadNumeros; i ++){
+                        this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
+                        let cantidadApostar = readlineSync.questionInt("Seleccione Apuesta: ")
+                     
+                        if(cantidadApostar >= this.apuestaMinima) {
+                               if(this.numerosSeleccionados[i] < 0 || this.numerosSeleccionados[i] > 36) {
+                                console.log("Numero invalido por favor ingrese un numero del 0 al 36, gracias!")
+                                this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
+                              }
+                        } else {
+                         console.log("Saldo insuficiente para realizar apuesta")
+                         this.jugar();
+                        }
+                }
+              }
 
-                for(let i = 0; i < cantidadNumeros; i ++){
-                   this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
-                   let cantidadApostar = readlineSync.questionInt("Seleccione Apuesta: ")
-                   if(cantidadApostar >= this.apuestaMinima) {
-                          if(this.numerosSeleccionados[i] < 0 || this.numerosSeleccionados[i] > 36) {
-                           console.log("Numero invalido por favor ingrese un numero del 0 al 36, gracias!")
-                           this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
-                         }
-                   } else {
-                    console.log("Saldo insuficiente para realizar apuesta")
-                    let cantidadApostar = readlineSync.questionInt("Seleccione Apuesta: ")
-                   }
                 
             }
             
