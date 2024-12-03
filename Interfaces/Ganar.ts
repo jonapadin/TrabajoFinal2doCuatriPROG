@@ -1,3 +1,0 @@
-interface Ganar{
-    combinacionGanadora():number;
-}

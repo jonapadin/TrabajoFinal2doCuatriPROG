@@ -3,7 +3,7 @@ import { TragamonedaLucky } from './TragamonedaV1';
 
 import { Cliente } from './Cliente';
 import { Dado } from './Dado';
-import { JuegoSlot } from "./JuegoSlot";
+import { Maquina } from "./Maquina";
 import { Ruleta } from './Ruleta';
 import { TragamonedaFruit } from './TragamonedaV2';
 import * as readlineSync from 'readline-sync';
@@ -12,7 +12,7 @@ import * as fs from 'fs';
 
 export class Casino {
     private cliente: Cliente[];
-    private juegos:JuegoSlot[];
+    private juegos:Maquina[];
     private nombre : string;
 
     constructor() {
@@ -175,16 +175,17 @@ export class Casino {
     
         switch(opcion){
             case "1":
-                this.crearRuleta();
+                this.crearRuleta(cliente);
+                
                 break
             case "2":
-                this.crearDado();
+                this.crearDado(cliente);
                 break
                 case "3":
-                this.crearTragamonedaFruit();
+                this.crearTragamonedaFruit(cliente);
                     break
                 case "4":
-                this.crearTragamonedaLucky();
+                this.crearTragamonedaLucky(cliente);
                     break
             case "5":
                 this.menu(cliente);
@@ -254,6 +255,8 @@ export class Casino {
             case "3":
                 this.menuInstrucciones(cliente);
                 break
+            case "4":
+                break   
             default: console.log("Eliga una opcion valida")
         }
         this.menu(cliente);
@@ -295,29 +298,33 @@ export class Casino {
     }
 
     
-    crearRuleta(){
-        const ruleta = new Ruleta()
+    crearRuleta(cliente:Cliente){
+        const ruleta = new Ruleta(cliente)
         ruleta.iniciarJuego();
-        ruleta.jugar();
+        ruleta.jugar(); 
+        cliente.getSaldo()
     }
 
     
-  crearDado(){
-    const dado = new Dado();
+  crearDado(cliente:Cliente){
+    const dado = new Dado(cliente);
     dado.iniciarJuego();
-    dado.jugar();;
+    dado.jugar();
+    cliente.getSaldo()
 }
 
-crearTragamonedaLucky(){
-    const tragamoneda = new TragamonedaLucky();
+crearTragamonedaLucky(cliente:Cliente){
+    const tragamoneda = new TragamonedaLucky(cliente);
     tragamoneda.iniciarJuego();
     tragamoneda.jugar();
+    cliente.getSaldo()
 }
 
-crearTragamonedaFruit(){
+crearTragamonedaFruit(cliente:Cliente){
     const tragamoneda = new TragamonedaFruit()
     tragamoneda.iniciarJuego()
     tragamoneda.jugar();
+    cliente.getSaldo()
 }
 
 }

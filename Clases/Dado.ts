@@ -1,14 +1,15 @@
-import { JuegoSlot } from "./JuegoSlot";
+import { Maquina } from "./Maquina";
 import * as readlineSync from 'readline-sync'
 import * as fs from 'fs';
 import { Cliente } from "./Cliente";
 
-export class Dado extends JuegoSlot{
+export class Dado extends Maquina{
   
     private cliente?: Cliente;
 
-    constructor (){
+    constructor (cliente?: Cliente){
         super("da2",250)
+        this.cliente = cliente;
     }
 
 

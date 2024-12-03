@@ -1,6 +1,6 @@
 import { Jugar } from "../Interfaces/Jugar";
 
-export abstract class JuegoSlot implements Jugar{
+export abstract class Maquina implements Jugar{
     protected nombre:string;
     protected apuestaMinima:number;
 

@@ -11,7 +11,7 @@ export class TragamonedaLucky extends Tragamoneda {
     private valoresPosibles: number[];
     private cliente?: Cliente; 
 
-    constructor() {
+    constructor(cliente?: Cliente) {
         super("Lucky Slot", 100, 1500); // Nombre del juego y apuesta mínima
         this.valor1 = 0;
         this.valor2 = 0;
@@ -49,9 +49,14 @@ export class TragamonedaLucky extends Tragamoneda {
 
         
         console.log(`Lo siento, el valor ${apuesta} no está en la combinación.`);
-        this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
-        console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
-        return false;
+        if(this.cliente) {
+            this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
+            console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
+            return true;
+        }  else {
+            console.log("No existe el cliente")
+            return false
+        }
     }
 
 
@@ -103,7 +108,9 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
 
-    mostrarSaldo(): void {}
+    mostrarSaldo() {
+        this.cliente?.getSaldo()
+    }
 
 
     multiplicador(): void {

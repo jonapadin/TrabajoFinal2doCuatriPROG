@@ -1,6 +1,6 @@
-import { JuegoSlot } from "./JuegoSlot";
+import { Maquina } from "./Maquina";
 
-export class Tragamoneda extends JuegoSlot {
+export class Tragamoneda extends Maquina {
     private saldo: number;
     private apuesta: number;
     
