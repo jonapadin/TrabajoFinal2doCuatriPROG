@@ -35,7 +35,7 @@ export class Casino {
         console.log("1- Registrarse")
         console.log("2- Iniciar Sesion")
         console.log("0- Salir")
-        let opcion = readlineSync.question("elija una opcion:")
+        let opcion = readlineSync.question("elija una opcion: ")
         
         switch(opcion) {
             case "1": 

@@ -83,16 +83,49 @@ export class Ruleta extends Maquina {
             const resultadoRuleta = this.girarRuleta();
             for(let i = 0; i < this.numerosSeleccionados.length; i++){
                 if(resultadoRuleta === this.numerosSeleccionados[i]){
-                        console.log(`Fue tu jugada GANADORA! ${this.numerosSeleccionados[i]}`)
+                        console.log(`Tu jugada fue GANADORA! ${this.numerosSeleccionados[i]}`);
 
                 }else {
-                        console.log("PERDISTE :(")   
+                        console.log("PERDISTE!");   
                 }
                 }
             break
+            case 3:     
+            if(this.cliente) {
+                let respuesta = readlineSync.question("Ingrese si desea apostar PAR/IMPAR: ").toUpperCase()
+                console.log("La apuesta minima es de: ", this.apuestaMinima)
+                let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
+                if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
+                    const resultadoRuleta = this.girarRuleta();
+
+                    if (resultadoRuleta === 0) {
+                        console.log("El número ganador es CERO, perdiste!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+
+                    } else if (resultadoRuleta % 2 === 0 && respuesta === "PAR") {
+                        console.log("El numero ganador es PAR!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta); 
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+
+                    } else if (resultadoRuleta % 2 !== 0 && respuesta === "IMPAR") {
+                        console.log("El numero ganador es IMPAR!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta);
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+
+                    } else {
+                        console.log("Ingrese un valor valido.");
+                    }
+
+                } else if (apuesta > this.cliente.getSaldo()) {
+                    console.log("Saldo insuficiente para realizar la apuesta.");
+                } else {
+                    console.log(`La apuesta minima es de ${this.apuestaMinima}.`);
+                }
+                break
        } 
 
-
+    } 
       
 
     //    let seguirJugando = true; 
