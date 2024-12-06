@@ -12,7 +12,7 @@ export class Ruleta extends Maquina {
     private numeroVerde: number = 0;
     private cliente?:Cliente;
     private numerosSeleccionados:number [] = [];
-    private coloresApostar: string [] = ["rojo","negro"];
+
 
     constructor(cliente?: Cliente) {
         super("Ruleta Smash", 250)
@@ -54,45 +54,161 @@ export class Ruleta extends Maquina {
        let opcion = readlineSync.questionInt("Seleccione Apuesta: ")
        switch(opcion) {
             case 1:
-                let cantidadNumeros:number = readlineSync.questionInt("Ingrese cuantos numeros quiere apostar: ");
-                let comparador:number  = cantidadNumeros * this.apuestaMinima;
-                console.log(comparador);
-                console.log(`${this.cliente?.getSaldo()}`)
-              if(this.cliente) {
-                console.log(comparador > this.cliente.getSaldo());
-                if(comparador > this.cliente.getSaldo()){
-                    for(let i = 0; i < cantidadNumeros; i ++){
-                        this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
-                        let cantidadApostar = readlineSync.questionInt("Seleccione Apuesta: ")
-                     
-                        if(cantidadApostar >= this.apuestaMinima) {
-                               if(this.numerosSeleccionados[i] < 0 || this.numerosSeleccionados[i] > 36) {
-                                console.log("Numero invalido por favor ingrese un numero del 0 al 36, gracias!")
-                                this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese numero: ");
-                              }
-                        } else {
-                         console.log("Saldo insuficiente para realizar apuesta")
-                         this.jugar();
-                        }
-                }
-              }
-
+                console.log("La apuesta mínima es de: ", this.apuestaMinima);
+                let cantidadNumeros: number = readlineSync.questionInt("Ingrese cuántos números quiere apostar: ");
+                let comparador: number = cantidadNumeros * this.apuestaMinima; 
+                let cantidadApostar: number = readlineSync.questionInt("Seleccione la cantidad a apostar: ");
                 
-            }
-            
-            const resultadoRuleta = this.girarRuleta();
-            for(let i = 0; i < this.numerosSeleccionados.length; i++){
-                if(resultadoRuleta === this.numerosSeleccionados[i]){
-                        console.log(`Fue tu jugada GANADORA! ${this.numerosSeleccionados[i]}`)
+                if (this.cliente && comparador <= this.cliente.getSaldo()) { // Verificar que el saldo sea suficiente
+                    for (let i = 0; i < cantidadNumeros; i++) {
 
-                }else {
-                        console.log("PERDISTE :(")   
+                        this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese número: ");
+                        
+                        // Validar que el número esté entre 0 y 36
+                        while (this.numerosSeleccionados[i] < 0 || this.numerosSeleccionados[i] > 36) {
+                            console.log("Número inválido. Por favor ingrese un número del 0 al 36.");
+                            this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese número: ");
+                        }
+                
+                   
+                
+
+                        if (cantidadApostar >= this.apuestaMinima) {
+                            console.log(`Apostaste ${cantidadApostar} al número ${this.numerosSeleccionados[i]}`);
+                        } else {
+                            console.log("La apuesta es menor que la apuesta mínima.");
+                            this.jugar(); 
+                        }
+                    }
+                
+
+                    const resultadoRuleta = this.girarRuleta();
+                    console.log(`El resultado de la ruleta es: ${resultadoRuleta}`);
+                
+                    // Verificar si el cliente ganó
+                    let gano = false;
+                    for (let i = 0; i < this.numerosSeleccionados.length; i++) {
+                        if (resultadoRuleta === this.numerosSeleccionados[i]) {
+                            console.log(`¡Tu jugada fue GANADORA! El número ${this.numerosSeleccionados[i]} salió en la ruleta.`);
+                            gano = true;
+                            this.jugar();
+                        }
+                    }
+                
+                    // Si no hay coincidencia, el cliente perdió
+                    if (!gano) {
+                        console.log("PERDISTE!");
+
+                        this.cliente.setSaldo(this.cliente.getSaldo() - cantidadApostar);
+                    }
+                } else {
+                    console.log("Saldo insuficiente para realizar la apuesta total.");
                 }
-                }
+            
             break
+            case 2:
+                if(this.cliente) {
+                    let respuesta = readlineSync.question("Elige un color a apostar ROJO/NEGRO: ").toUpperCase();
+                    console.log("La apuesta minima es de: ", this.apuestaMinima);
+                    let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
+                    if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
+
+                       while(respuesta !== "NEGRO" && respuesta !== "ROJO" ) {
+                        console.log("Opcion no valida debe seleccionar rojo o negro")
+
+                        respuesta = readlineSync.question("Elige un color a apostar ROJO/NEGRO: ").toUpperCase();
+                       }
+
+                       const resultadoRuleta = this.girarRuleta();
+
+                       if(resultadoRuleta === 0 ) {
+                        console.log("Perdiste la bola ha caido en el 0");
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+                        this.jugar();
+                       } 
+                       if(respuesta === "ROJO") {
+                        this.numerosSeleccionados.push(resultadoRuleta);
+                        this.numerosSeleccionados = this.numerosRojos;
+                        console.log("El color ganador es ROJO!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta); 
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+                        this.jugar()
+                       } else {
+                        console.log(`Perdiste el color que seleccionaste es ${respuesta}`)
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        this.jugar();
+                       }
+
+                       if(respuesta === "NEGRO") {
+                        this.numerosSeleccionados.push(resultadoRuleta);
+                        this.numerosSeleccionados = this.numerosNegros;
+                        console.log("El color ganador es NEGRO!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta); 
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+                       }else {
+                        console.log(`Perdiste el color que seleccionaste es ${respuesta}`)
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        this.jugar();
+                       }
+                       
+                    
+                    }
+                }
+                
+            break
+            case 3:     
+            if(this.cliente) {
+                let respuesta = readlineSync.question("Ingrese si desea apostar PAR/IMPAR: ").toUpperCase()
+                console.log("La apuesta minima es de: ", this.apuestaMinima)
+                let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
+                if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
+
+
+                    while(respuesta !== "PAR" && respuesta !== "IMPAR" ) {
+                        console.log("Opcion no valida debe seleccionar par o impar")
+
+                        respuesta = readlineSync.question("Elige un color a apostar PAR/IMPAR: ").toUpperCase();
+                    }
+
+
+                    const resultadoRuleta = this.girarRuleta();
+
+                    if(resultadoRuleta === 0 ) {
+                        console.log("Perdiste la bola ha caido en el 0");
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+                        this.jugar();
+                    } 
+
+
+                     if (resultadoRuleta % 2 === 0 && respuesta === "PAR") {
+                        console.log("El numero ganador es PAR!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta); 
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+
+                    } else {
+                        console.log(`Perdiste el numero que seleccionaste no es ${respuesta}`)
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        this.jugar();
+                    }
+
+                    if (resultadoRuleta % 2 !== 0 && respuesta === "IMPAR") {
+                        console.log("El numero ganador es IMPAR!");
+                        this.cliente.setSaldo(this.cliente.getSaldo() + apuesta);
+                        console.log("Saldo actual: ", this.cliente.getSaldo());
+
+                    }  else {
+                        console.log(`Perdiste el color que seleccionaste no es ${respuesta}`)
+                        this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
+                        this.jugar();
+                    }
+
+                }               
+                break
        } 
 
-
+    } 
       
 
     //    let seguirJugando = true; 
@@ -154,4 +270,3 @@ export class Ruleta extends Maquina {
         return apuesta;
     }
 }
-

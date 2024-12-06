@@ -11,13 +11,13 @@ import * as fs from 'fs';
 
 
 export class Casino {
-    private cliente: Cliente[];
+    private clientes: Cliente[];
     private juegos:Maquina[];
     private nombre : string;
 
     constructor() {
         this.juegos = []; 
-        this.cliente = [];
+        this.clientes = [];
         this.nombre = "BinBaires"
     }
 
@@ -25,7 +25,7 @@ export class Casino {
         return this.nombre
     }
     getCliente (){
-        return this.cliente
+        return this.clientes
     }
 
  menuPrincipal() {
@@ -35,7 +35,7 @@ export class Casino {
         console.log("1- Registrarse")
         console.log("2- Iniciar Sesion")
         console.log("0- Salir")
-        let opcion = readlineSync.question("elija una opcion:")
+        let opcion:string = readlineSync.question("elija una opcion:")
         
         switch(opcion) {
             case "1": 
@@ -53,37 +53,110 @@ export class Casino {
     
     
     }
-    
-    
 
-    public agregarCliente (cliente:Cliente):void{
-        if (cliente.getEdad()<18){
-            console.log ("Tienes que ser mayor de 18 años para poder entrar"); //valida la edad del cliente
-        }else{
-            this.cliente.push(cliente); 
-            console.log  ("El cliente: ",cliente.getNombre(), "fue agregado al casino"); 
-        }
-    }
+
+
 
     //Registro  
     menuRegistro() {
-        let nombreUsuario = readlineSync.question("Ingrese Nombre: ")
-        let edad = readlineSync.questionInt("Ingrese su Edad: ")
-        let dni = readlineSync.question("Ingrese su DNI: ")
-        this.validacionCampo(nombreUsuario, edad, dni)
-        this.registrarCliente(nombreUsuario,edad,dni);
+        this.crearCliente()
     
+    }
+
+
+
+    crearCliente(cliente?: Cliente | null) {
+        let data: string;
+        try {
+            data = fs.readFileSync("clientes.txt", "utf-8");
+        } catch (error) {
+            console.error("Error al leer el archivo:", error);
+            return;
+        }
+    
+        let nombreUsuario: string = readlineSync.question("Ingrese Nombre: ");
+        let edad: number = readlineSync.questionInt("Ingrese Edad: ");
+        let dni: string = readlineSync.question("Ingrese DNI: ");
+    
+        while (!nombreUsuario || !nombreUsuario.toLowerCase().replace(/[^a-z\#\&]+/g, "")) {
+            nombreUsuario = readlineSync.question("Por favor ingrese un nombre valido: ");
+        }
+    
+        while (!edad || edad < 18) {
+            edad = readlineSync.questionInt("Por favor ingrese una edad (mayor de 18): ");
+        }
+    
+        while (!dni || dni.length < 8 || dni.length >= 9) {
+            dni = readlineSync.question("Por favor ingrese dni valido (8 digitos): ");
+        }
+    
+        // Parseamos los datos
+        const clientesTxt: {
+            nombre: string,
+            edad: number,
+            dni: string,
+            saldo: number
+        }[] = JSON.parse(data);
+    
+        // Buscamos el cliente por su dni
+        let clienteIndex = clientesTxt.findIndex((c) => c.dni === dni);
+    
+        // Si el cliente no existe, lo agregamos como nuevo
+        if (clienteIndex === -1) {
+            cliente = new Cliente(nombreUsuario, edad, dni);
+            this.agregarCliente(cliente);
+            // Agregar cliente al archivo
+            clientesTxt.push({
+                nombre: cliente.getNombre(),
+                edad: cliente.getEdad(),
+                dni: cliente.getDni(),
+                saldo: cliente.getSaldo()
+            });
+        } else {
+            console.log("Ya existe un usuario con ese dni.");
+            this.menuPrincipal();
+        }
+    
+        // Guardamos los datos actualizados en el archivo
+        try {
+            fs.writeFileSync("clientes.txt", JSON.stringify(clientesTxt, null, 2), "utf8");
+            console.log("El archivo clientes.txt ha sido actualizado correctamente.");
+        } catch (error) {
+            console.error("Error al guardar el archivo:", error);
+        }
+    
+        // Agregar al casino
+        if (cliente) {
+            this.agregarCliente(cliente);
+        }
+    }
+    
+    public agregarCliente(cliente: Cliente): void {
+        if (cliente.getEdad() < 18) {
+            console.log("Tienes que ser mayor de 18 años para poder registrarte");
+        } else {
+            this.clientes.push(cliente);
+            console.log("El cliente:", cliente.getNombre(), "fue agregado al casino");
+        }
     }
 
     menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky) { 
         let dniUsuario = readlineSync.question("Ingrese su DNI para iniciar sesion: ")
+        let intentos = 1;
+        while(!dniUsuario || intentos === 2 ) {
+            readlineSync.question("Ingrese su DNI para iniciar sesion: ")
+            if(intentos === 3 ){
+                console.log("Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde!")
+                return
+            }
+            intentos++
+        }
         this.seleccionarUsuario(dniUsuario);
      }
 
      registrarCliente(nombreUsuario:string,edad:number,dni:string){
         let cliente = new Cliente(nombreUsuario,edad,dni)
         this.agregarCliente(cliente)
-        console.log ("Cliente agregado con Exito")
         this.guardarEnArchivo("cliente.txt", this.getCliente())
     }
 
@@ -101,26 +174,11 @@ export class Casino {
         }
     }
 
-     validacionCampo(nombreUsuario: string, edad: number, dni: string) {
-        if (nombreUsuario === "") {
-            console.log("ingrese un nombre.")
-            
-        }
-        if (nombreUsuario.length <= 3) {
-            console.log("ingrese minimo 4 caracteres")
-            return
-        }
-        if (edad < 18) {
-            console.log("Usted no puede jugar, ya que es menor de 18 años")
-            return
-        }
-      
-    }  
 
     seleccionarUsuario(dni: string) {
         try {
             // Leer el archivo de manera sincrónica
-            const data = fs.readFileSync('cliente.txt', 'utf-8');
+            const data = fs.readFileSync('clientes.txt', 'utf-8');
     
             // Parsear los datos a JSON
             const clienteTxt: { nombre: string; edad: number; dni: string }[] = JSON.parse(data);
@@ -256,7 +314,9 @@ export class Casino {
                 this.menuInstrucciones(cliente);
                 break
             case "4":
-                break   
+                break 
+                case "5":
+                return  
             default: console.log("Eliga una opcion valida")
         }
         this.menu(cliente);
