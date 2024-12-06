@@ -40,13 +40,7 @@ export abstract class Tragamoneda extends Maquina {
         console.log("💰 Saldo actual: " + this.cliente?.getSaldo());
     }
 
-    public multiplicador(): void {
-
-        let multiplicador = Math.random() * 10;
-        console.log("💰 Multiplicador de la jugada: " + multiplicador);
-    }
-
-    public validarSaldo(saldo: number): number {
+       public validarSaldo(saldo: number): number {
         if (saldo < this.apuestaMinima) {
             console.log("❌ Saldo insuficiente.");
             return 0;

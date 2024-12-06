@@ -22,7 +22,7 @@ export class Ruleta extends Maquina {
     }
 
     public jugar(): void {
-       if(this.cliente?.getSaldo() === 0) {
+       if(this.cliente?.getSaldo() == 0) {
         console.log("❌ Saldo insuficiente")
         return
        }
@@ -63,7 +63,7 @@ export class Ruleta extends Maquina {
                     // Verificar si el cliente ganó
                     let gano = false;
                     for (let i = 0; i < this.numerosSeleccionados.length; i++) {
-                        if (resultadoRuleta === this.numerosSeleccionados[i]) {
+                        if (resultadoRuleta == this.numerosSeleccionados[i]) {
                             console.log(`🎉 ¡Tu jugada fue GANADORA! El número ${this.numerosSeleccionados[i]} salió en la ruleta.`);
                             gano = true;
                             this.jugar();
@@ -86,20 +86,20 @@ export class Ruleta extends Maquina {
                     let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
                     if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
 
-                       while(respuesta !== "NEGRO" && respuesta !== "ROJO" ) {
+                       while(respuesta != "NEGRO" && respuesta != "ROJO" ) {
                         console.log("❌ Opcion no valida debe seleccionar rojo o negro")
 
                         respuesta = readlineSync.question("Elige un color a apostar(ROJO/NEGRO): ").toUpperCase();
                        }
                        const resultadoRuleta = this.generarResultado();
 
-                       if(resultadoRuleta === 0 ) {
+                       if(resultadoRuleta == 0 ) {
                         console.log("😥!Perdiste la bola ha caido en el 0! 🟩");
                         this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
                         console.log("💰Saldo actual: ", this.cliente.getSaldo());
                         this.jugar();
                        } 
-                       if(respuesta === "ROJO") {
+                       if(respuesta == "ROJO") {
                         this.numerosSeleccionados.push(resultadoRuleta);
                         this.numerosSeleccionados = this.numerosRojos;
                         console.log("El color ganador es ROJO! 🟥");
@@ -112,7 +112,7 @@ export class Ruleta extends Maquina {
                         this.jugar();
                        }
 
-                       if(respuesta === "NEGRO") {
+                       if(respuesta == "NEGRO") {
                         this.numerosSeleccionados.push(resultadoRuleta);
                         this.numerosSeleccionados = this.numerosNegros;
                         console.log("El color ganador es NEGRO! ⬛");
@@ -134,7 +134,7 @@ export class Ruleta extends Maquina {
                 if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
 
 
-                    while(respuesta !== "PAR" && respuesta !== "IMPAR" ) {
+                    while(respuesta != "PAR" && respuesta != "IMPAR" ) {
                         console.log("❌ Opcion no valida debe seleccionar par o impar")
 
                         respuesta = readlineSync.question("Elige un valor a apostar (PAR/IMPAR): ").toUpperCase();
@@ -142,14 +142,14 @@ export class Ruleta extends Maquina {
 
                     const resultadoRuleta = this.generarResultado();
 
-                    if(resultadoRuleta === 0 ) {
+                    if(resultadoRuleta == 0 ) {
                         console.log("😥 !Perdiste la bola ha caido en el 0");
                         this.cliente.setSaldo(this.cliente.getSaldo() - apuesta);
                         console.log("💰 Saldo actual: ", this.cliente.getSaldo());
                         this.jugar();
                     } 
 
-                     if (resultadoRuleta % 2 === 0 && respuesta === "PAR") {
+                     if (resultadoRuleta % 2 == 0 && respuesta == "PAR") {
                         console.log("🎉 El numero ganador es PAR!");
                         this.cliente.setSaldo(this.cliente.getSaldo() + apuesta); 
                         console.log("💰 Saldo actual: ", this.cliente.getSaldo());
@@ -160,7 +160,7 @@ export class Ruleta extends Maquina {
                         this.jugar();
                     }
 
-                    if (resultadoRuleta % 2 !== 0 && respuesta === "IMPAR") {
+                    if (resultadoRuleta % 2 != 0 && respuesta == "IMPAR") {
                         console.log("🎉 El numero ganador es IMPAR!");
                         this.cliente.setSaldo(this.cliente.getSaldo() + apuesta);
                         console.log("💰 Saldo actual: ", this.cliente.getSaldo());
@@ -179,7 +179,7 @@ export class Ruleta extends Maquina {
     public generarResultado() {
         this.bola = Math.floor(Math.random() * 2);
 
-        if (this.bola === this.numeroVerde) {
+        if (this.bola == this.numeroVerde) {
             console.log("La bola ha caído en el número (0)🟩.");
         } else if (this.numerosRojos.includes(this.bola)) {
             console.log(`La bola ha caído en ${this.bola} 🟥.`);
@@ -192,9 +192,7 @@ export class Ruleta extends Maquina {
     public mostrarSaldo(): void {
         console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
     }
-
-    public  multiplicador(): void {}
-
+ 
     public  realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese el numero a apostar:  ")
         if (apuesta >= 0 && apuesta <= 36) {

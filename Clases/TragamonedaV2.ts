@@ -39,7 +39,7 @@ export class TragamonedaFruit extends Tragamoneda {
     }
 
     public generarResultado(): void {
-        if( this.valoresPosibles.length === 0) {
+        if( this.valoresPosibles.length == 0) {
             console.error("❌ Maquina fuera de servicio!");
             return;
         }
@@ -58,23 +58,23 @@ export class TragamonedaFruit extends Tragamoneda {
             return false;
         }
 
-        if (this.valor1 === this.valor2 && this.valor2 === this.valor3) {
+        if (this.valor1 == this.valor2 && this.valor2 == this.valor3) {
 
-            if (this.valor1 === "🍓") {
+            if (this.valor1 == "🍓") {
                 console.log("🎉¡Ganaste el premio Major con 3 🍓!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 5); 
                 console.log(`💰Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
-            else if (this.valor1 === "🍋") {
+            else if (this.valor1 == "🍋") {
                 console.log("🎉¡Ganaste el premio Mini con 3 🍋!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 2); 
                 console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
-            else if (this.valor1 === "🍉") {
+            else if (this.valor1 == "🍉") {
                 console.log("¡Ganaste el Jackpot con 3 🍉!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 10); 
                 console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
@@ -105,11 +105,11 @@ export class TragamonedaFruit extends Tragamoneda {
 
     let seguirJugando:boolean = true;
     let pregunta:string = readlineSync.question(" Deseas seguir jugando?: ").toLowerCase();
-    if(pregunta === "si") {
+    if(pregunta == "si") {
         this.generarResultado();
         this.juegoGanador();
         this.mostrarSaldo();
-    } else if(pregunta === "no") {
+    } else if(pregunta == "no") {
         seguirJugando = false;
     }
  }

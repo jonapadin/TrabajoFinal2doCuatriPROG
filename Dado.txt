@@ -3,16 +3,16 @@
 ====================
 
 Descripción:
-Un juego sencillo en el que lanzas dos dados. Gana quien obtenga 7 o 11.
+Un juego sencillo en el que se lanza un dado. Ganas si el numero seleccionado es el ganador.
 
 Cómo jugar:
-1. Ingresa tu apuesta inicial.
-2. Lanza los dados presionando "Lanzar".
-3. Si el resultado de los dados es 7 o 11, ganas el doble de tu apuesta.
+1. Ingresa un numero del 1 al 6.
+2. Se lanza el dado.
+3. Si el resultado del dado es entre 1 y 6, ganas el doble de tu apuesta.
 4. Si obtienes otro número, pierdes la apuesta.
 
 Reglas adicionales:
-- Se utilizan dos dados de seis caras.
-- Cualquier número distinto de 7 u 11 es considerado una pérdida.
+- Se utiliza un dado de seis caras.
+- Cualquier número distinto entre 1 y 6 es considerado una pérdida.
 
 ¡Intenta tu suerte con los dados!

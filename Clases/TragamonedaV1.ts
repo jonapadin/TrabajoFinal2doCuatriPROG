@@ -35,7 +35,7 @@ export class TragamonedaLucky extends Tragamoneda {
 
     // Generar un resultado aleatorio
     public generarResultado(): void {
-        if( this.valoresPosibles.length === 0) {
+        if( this.valoresPosibles.length == 0) {
             console.error("❌ Maquina fuera de servicio!");
             return;
         }
@@ -50,16 +50,16 @@ export class TragamonedaLucky extends Tragamoneda {
     public juegoGanador(): boolean {
         const apuesta = this.realizarApuesta();
         
-        if (this.valor1 === apuesta && this.valor2 === apuesta && this.valor3 === apuesta) {
+        if (this.valor1 == apuesta && this.valor2 == apuesta && this.valor3 == apuesta) {
             console.log(`🎉¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
             this.cliente?.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
             return true; 
         }
         // Comprobamos si al menos dos rodillos tienen el valor
         let contador = 0;
-        if (this.valor1 === apuesta) contador++;
-        if (this.valor2 === apuesta) contador++;
-        if (this.valor3 === apuesta) contador++;
+        if (this.valor1 == apuesta) contador++;
+        if (this.valor2 == apuesta) contador++;
+        if (this.valor3 == apuesta) contador++;
 
         // Si al menos dos rodillos tienen el valor, es victoria parcial
         if (contador >= 1) {
@@ -89,11 +89,11 @@ export class TragamonedaLucky extends Tragamoneda {
     
                 let seguirJugando:boolean = true;
                 let pregunta:string = readlineSync.question("Deseas seguir jugando?: ").toLowerCase();
-                if(pregunta === "si") {
+                if(pregunta == "si") {
                     this.generarResultado();
                     this.juegoGanador();
                     this.mostrarSaldo();
-                } else if(pregunta === "no") {
+                } else if(pregunta == "no") {
                     seguirJugando = false;
                 }
         }
@@ -106,10 +106,5 @@ export class TragamonedaLucky extends Tragamoneda {
     } else {
         console.log("❌ No hay un cliente asociado.");
     }
-    }
-
-    public multiplicador(): void {
-        let multiplicador = Math.random() * 3 + 1; 
-        console.log(`💰Multiplicador: ${multiplicador}`);
     }
 }

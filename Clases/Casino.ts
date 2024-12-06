@@ -118,10 +118,10 @@ export class Casino {
         }[] = JSON.parse(data);
     
         // Buscamos el cliente por su dni
-        let clienteIndex = clientesTxt.findIndex((c) => c.dni === dni);
+        let clienteIndex = clientesTxt.findIndex((c) => c.dni == dni);
     
         // Si el cliente no existe, lo agregamos como nuevo
-        if (clienteIndex === -1) {
+        if (clienteIndex == -1) {
             cliente = new Cliente(nombreUsuario, edad, dni);
             this.agregarCliente(cliente);
             // Agregar cliente al archivo
@@ -169,10 +169,10 @@ export class Casino {
         console.log("");
         let dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
         let intentos = 1;
-        while(!dniUsuario || intentos === 2 ) {
+        while(!dniUsuario || intentos == 2 ) {
             console.log("");
             readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
-            if(intentos === 3 ){
+            if(intentos == 3 ){
                 console.log("");
                 console.log(chalk.red("❌ Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde!"))
                 return
@@ -217,7 +217,7 @@ export class Casino {
             );
     
             // Buscar el cliente por DNI
-            const cliente = clientes.find((v) => v.getDni() === dni);
+            const cliente = clientes.find((v) => v.getDni() == dni);
     
             if (cliente) {
 
@@ -249,7 +249,7 @@ export class Casino {
 
     public menuJuegos(cliente:Cliente){
 
-      if(this.agregarJuegos.length === 0) {
+      if(this.agregarJuegos.length == 0) {
         console.log(chalk.bgBlue("No hay juegos disponibles"));
     }else {
         console.log(`1️⃣1 Iniciar Ruleta `);
@@ -355,9 +355,9 @@ export class Casino {
                     const clientesTxt: { nombre: string, edad: number, dni: string, saldo: number }[] = JSON.parse(data);
                 
                     // Buscar el cliente en el array usando el DNI
-                    let clienteIndex = clientesTxt.findIndex((c) => c.dni === cliente.getDni());
+                    let clienteIndex = clientesTxt.findIndex((c) => c.dni == cliente.getDni());
                 
-                    if (clienteIndex === -1) {
+                    if (clienteIndex == -1) {
                         console.log("");
                         console.log(chalk.red("No se encontró un cliente con ese DNI."));
                         return;

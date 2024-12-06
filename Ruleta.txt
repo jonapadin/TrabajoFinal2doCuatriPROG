@@ -11,12 +11,7 @@ Cómo jugar:
    - Número específico (0-36).
    - Color: rojo o negro.
    - Tipo: par o impar.
-3. Gira la ruleta presionando "Jugar".
+3. Una vez hecha la apuesta, la ruleta girará y se verá el resultado.
 4. Si el resultado coincide con tu apuesta, ganas según las probabilidades.
-
-Ejemplo de ganancias:
-- Número exacto: x36
-- Color correcto: x2
-- Par/impar correcto: x2
 
 Nota: Apuesta sabiamente y diviértete girando la ruleta.
