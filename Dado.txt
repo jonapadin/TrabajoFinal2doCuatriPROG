@@ -5,16 +5,17 @@
 Inicio del Juego:
 
 Cuando empiece el juego, verás un mensaje indicando que el juego de dados está comenzando.
+
 Haz tu apuesta:
 
 Se te pedirá que elijas un número entre 1 y 6. Este número será tu apuesta.
-Lanza el dado:
 
+Lanza el dado:
 El dado se lanzará automáticamente, y el juego mostrará un número al azar entre 1 y 6.
-Resultados:
 
 Si el número que elegiste coincide con el resultado del dado:
 ¡Felicidades! Ganaste, y se duplicará el monto de tu apuesta en tu saldo.
+
 Si no coincide:
 Perdiste, y el monto mínimo de la apuesta se descontará de tu saldo.
 
