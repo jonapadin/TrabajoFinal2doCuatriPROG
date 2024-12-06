@@ -25,10 +25,10 @@ export class Dado extends Maquina{
       console.log (`El resultado es: ${resultado}`);
       if (apuesta === resultado){
           console.log ("Felicitaciones! usted gano ..."); 
-          const ganancia = this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
+         this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
       }else{
           console.log ("Perdio..."); 
-          const perdida = this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
+          this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
       }
      }
 

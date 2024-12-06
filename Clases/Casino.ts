@@ -10,6 +10,7 @@ import * as readlineSync from 'readline-sync';
 import * as fs from 'fs';
 
 
+
 export class Casino {
     private clientes: Cliente[];
     private juegos:Maquina[];
@@ -29,8 +30,17 @@ export class Casino {
     }
 
  menuPrincipal() {
+    const  figlet = require("figlet");
+    figlet(`Bienvenido al CASINO ! ${this.getNombre()} `, function (err, data) {
+        if (err) {
+          console.log("Ha ocurrido un error inesperado..");
+          console.dir(err);
+          return;
+        }
+        console.log(data);
+      });
         console.log("**********************************************************")
-        console.log(`Bienvenido al CASINO ! ${this.getNombre()} `)
+        console.log(figlet);
         console.log("**********************************************************")
         console.log("1- Registrarse")
         console.log("2- Iniciar Sesion")
