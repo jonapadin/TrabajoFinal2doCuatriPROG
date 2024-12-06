@@ -2,17 +2,19 @@
  INSTRUCCIONES: DADO
 ====================
 
-Descripción:
-Un juego sencillo en el que lanzas dos dados. Gana quien obtenga 7 o 11.
+Inicio del Juego:
 
-Cómo jugar:
-1. Ingresa tu apuesta inicial.
-2. Lanza los dados presionando "Lanzar".
-3. Si el resultado de los dados es 7 o 11, ganas el doble de tu apuesta.
-4. Si obtienes otro número, pierdes la apuesta.
+Cuando empiece el juego, verás un mensaje indicando que el juego de dados está comenzando.
+Haz tu apuesta:
 
-Reglas adicionales:
-- Se utilizan dos dados de seis caras.
-- Cualquier número distinto de 7 u 11 es considerado una pérdida.
+Se te pedirá que elijas un número entre 1 y 6. Este número será tu apuesta.
+Lanza el dado:
 
-¡Intenta tu suerte con los dados!
+El dado se lanzará automáticamente, y el juego mostrará un número al azar entre 1 y 6.
+Resultados:
+
+Si el número que elegiste coincide con el resultado del dado:
+¡Felicidades! Ganaste, y se duplicará el monto de tu apuesta en tu saldo.
+Si no coincide:
+Perdiste, y el monto mínimo de la apuesta se descontará de tu saldo.
+
