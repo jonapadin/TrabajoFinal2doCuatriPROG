@@ -40,9 +40,14 @@ export class Dado extends Maquina{
       return opcion; 
      }
 
-     public mostrarSaldo(): void {}
+     public mostrarSaldo(): void {
+        if(this.cliente){
+            console.log(`💰 Saldo actual: ${this.cliente.getSaldo()}`);
+        } else{
+            console.log("❌ Cliente no está disponible.")
+        }
+     }
 
-      
      public jugar(): void {    
       let seguirJugando = true; 
 
