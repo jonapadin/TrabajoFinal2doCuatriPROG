@@ -19,7 +19,7 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
     public iniciarJuego(): void {
-        console.log(`📲 Estás iniciando el juego ${this.getNombre()}`);
+        console.log(`⏳¡Estás iniciando el juego ${this.getNombre()}!⌛`);
     }
 
     public realizarApuesta(): number {

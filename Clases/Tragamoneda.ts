@@ -12,7 +12,7 @@ export abstract class Tragamoneda extends Maquina {
     }
 
     public iniciarJuego(): void {
-        console.log("📲 Iniciando el juego de tragamonedas: " + this.nombre);
+        console.log("⏳¡Iniciando el juego de tragamonedas: " + this.nombre! + "⌛");
     }
 
     public generarResultado(): void {
