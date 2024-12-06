@@ -12,12 +12,12 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "figlet": "^1.8.0",
-    "nanospinner": "^1.2.0",
     "readline-sync": "^1.4.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@types/cli-progress": "^3.11.6",
     "@types/figlet": "^1.7.0",
     "@types/node": "^22.10.1",
     "@types/readline-sync": "^1.4.8"
