@@ -116,7 +116,5 @@ export class TragamonedaFruit extends Tragamoneda {
     } else if(pregunta === "no") {
         seguirJugando = false;
     }
-}
-
-
+ }
 }

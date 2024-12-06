@@ -13,7 +13,6 @@ export class Ruleta extends Maquina {
     private cliente?:Cliente;
     private numerosSeleccionados:number [] = [];
 
-
     constructor(cliente?: Cliente) {
         super("Ruleta Smash", 250)
         this.cliente = cliente;
@@ -31,7 +30,6 @@ export class Ruleta extends Maquina {
         return
        }
        this.mostrarSaldo();
-
 
        console.log("1- Seleccionar numeros");
        console.log("2- Apuesta por Color");
