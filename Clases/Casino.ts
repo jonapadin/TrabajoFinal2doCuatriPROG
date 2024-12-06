@@ -344,6 +344,7 @@ export class Casino {
                 this.menuInstrucciones(cliente);
                 break
             case "4":
+                this.retirarDinero(cliente)
                 break 
             case "5":
                 fs.readFile("clientes.txt", 'utf-8', (err, data) => {
@@ -377,8 +378,8 @@ export class Casino {
                     console.log("");
                     console.log(chalk.bgBlue("Cerrando sesión, gracias, ¡vuelve pronto!"));
                 });
-                return  
-            default: console.log("Eliga una opcion valida")
+                return;
+            default: console.log("Eliga una opcion valida");
         }
         this.menu(cliente);
     }
@@ -387,7 +388,7 @@ export class Casino {
         try {
             const data = fs.readFileSync('dado.txt', 'utf-8');
     
-            console.log(data)
+            console.log(data);
     
         } catch (err) {
             console.error((chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err)));
@@ -398,7 +399,7 @@ export class Casino {
         try {
             const data = fs.readFileSync('ruleta.txt', 'utf-8');
     
-            console.log(data)
+            console.log(data);
     
         } catch (err) {
             console.error(chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err));
@@ -409,7 +410,7 @@ export class Casino {
         try {
             const data = fs.readFileSync('tragamonedas.txt', 'utf-8');
     
-            console.log(data)
+            console.log(data);
     
         } catch (err) {
             console.error(chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err));
@@ -417,30 +418,49 @@ export class Casino {
     }
     
     public crearRuleta(cliente:Cliente){
-        const ruleta = new Ruleta(cliente)
+        const ruleta = new Ruleta(cliente);
         ruleta.iniciarJuego();
         ruleta.jugar(); 
-        cliente.getSaldo()
+        cliente.getSaldo();
     }
     
     public crearDado(cliente:Cliente){
     const dado = new Dado(cliente);
     dado.iniciarJuego();
     dado.jugar();
-    cliente.getSaldo()
+    cliente.getSaldo();
     }
 
     public crearTragamonedaLucky(cliente:Cliente){
     const tragamoneda = new TragamonedaLucky(cliente);
     tragamoneda.iniciarJuego();
     tragamoneda.jugar();
-    cliente.getSaldo()
+    cliente.getSaldo();
     }
 
     public crearTragamonedaFruit(cliente:Cliente){
-    const tragamoneda = new TragamonedaFruit(cliente)
-    tragamoneda.iniciarJuego()
+    const tragamoneda = new TragamonedaFruit(cliente);
+    tragamoneda.iniciarJuego();
     tragamoneda.jugar();
-    cliente.getSaldo()
+    cliente.getSaldo();
+    }
+
+    public retirarDinero(cliente:Cliente){
+        const retirarDinero = readlineSync.questionInt ("Ingrese el monto a retirar: ");
+        if (retirarDinero < 0){
+            console.log ("Ingrese un valor positivo");
+            this.retirarDinero(cliente);
+        }
+        const confirmacion = readlineSync.question ("Desea confirmar? si/no: ").toLowerCase();
+    
+        if(confirmacion == "si" && retirarDinero <= cliente.getSaldo()){
+            cliente.setSaldo(cliente.getSaldo()- retirarDinero); 
+            console.log (`✅ Ha retirado $${retirarDinero}.`);
+            this.menu(cliente);
+        }else if (confirmacion == "no"){
+            this.menu(cliente);
+        } else{
+            console.log ("🔴 El monto no puede superar el saldo actual");
+        }
     }
 }
