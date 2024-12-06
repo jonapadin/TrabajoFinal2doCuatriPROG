@@ -20,11 +20,11 @@ export class TragamonedaFruit extends Tragamoneda {
     }
 
 
-    iniciarJuego(): void {
+    public iniciarJuego(): void {
         console.log(`Estas iniciando el juego ${this.getNombre()}`);
     }
 
-    realizarApuesta(): number {
+    public realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese apuesta: ");
         if (this.cliente) {
             if (apuesta > this.cliente.getSaldo()) {
@@ -40,7 +40,7 @@ export class TragamonedaFruit extends Tragamoneda {
         return apuesta;
     }
 
-    generarResultado(): void {
+    public generarResultado(): void {
         if( this.valoresPosibles.length === 0) {
             console.error("Maquina fuera de servicio!");
             return;
@@ -54,7 +54,7 @@ export class TragamonedaFruit extends Tragamoneda {
         
     }
 
-    juegoGanador(): boolean {
+    public juegoGanador(): boolean {
         if (!this.cliente) {
             console.log("No hay cliente asociado.");
             return false;
@@ -92,7 +92,7 @@ export class TragamonedaFruit extends Tragamoneda {
     }
     
 
-    mostrarSaldo(): void {
+    public mostrarSaldo(): void {
         if (this.cliente) {
             console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
         } else {
@@ -100,7 +100,7 @@ export class TragamonedaFruit extends Tragamoneda {
         }
     }
 
-    jugar(): void {
+    public jugar(): void {
         console.clear();
         this.iniciarJuego();
         this.generarResultado();

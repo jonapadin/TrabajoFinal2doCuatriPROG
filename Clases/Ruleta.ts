@@ -19,15 +19,13 @@ export class Ruleta extends Maquina {
         this.cliente = cliente;
     }
 
-    
-
 
     //mensaje de que se esta iniciando el juego para luego apostar
-    iniciarJuego(): void {
+    public iniciarJuego(): void {
         console.log(`Espere por favor, se esta iniciando el juego ${this.nombre}`)
     }
 
-    jugar(): void {
+    public jugar(): void {
        if(this.cliente?.getSaldo() === 0) {
         console.log("Saldo insuficiente")
         return
@@ -57,9 +55,6 @@ export class Ruleta extends Maquina {
                             console.log("Número inválido. Por favor ingrese un número del 0 al 36.");
                             this.numerosSeleccionados[i] = readlineSync.questionInt("Ingrese número: ");
                         }
-                
-                   
-                
 
                         if (cantidadApostar >= this.apuestaMinima) {
                             console.log(`Apostaste ${cantidadApostar} al número ${this.numerosSeleccionados[i]}`);
@@ -200,9 +195,7 @@ export class Ruleta extends Maquina {
     } 
       
 
-
-
-    generarResultado() {
+    public generarResultado() {
         this.bola = Math.floor(Math.random() * 2);
 
         if (this.bola === this.numeroVerde) {
@@ -213,18 +206,16 @@ export class Ruleta extends Maquina {
             console.log(`La bola ha caído en ${this.bola} negro.`);
         }
         return this.bola
-    }
+    }    
 
-     
-
-    mostrarSaldo(): void {
+    public mostrarSaldo(): void {
         console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
     }
 
-    multiplicador(): void {}
+    public  multiplicador(): void {}
 
 
-    realizarApuesta(): number {
+    public  realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese el numero a apostar:  ")
         if (apuesta >= 0 && apuesta <= 36) {
             console.log(apuesta)

@@ -12,22 +12,18 @@ export abstract class Tragamoneda extends Maquina {
         this.cliente = cliente;
     }
 
-    
 
-    iniciarJuego(): void {
+    public iniciarJuego(): void {
         console.log("Iniciando el juego de tragamonedas: " + this.nombre);
     }
 
-
-
-    generarResultado(): void {
+    public generarResultado(): void {
 
         console.log("Generando el resultado...");
     }
- 
      
 
-    jugar(): void {
+    public jugar(): void {
 
         if(this.cliente) {
             if (this.cliente?.getSaldo() < this.apuestaMinima) {
@@ -37,24 +33,23 @@ export abstract class Tragamoneda extends Maquina {
         }
     }
 
-
-    realizarApuesta(): number {
+    public realizarApuesta(): number {
         console.log("Realizando apuesta...");
         this.apuesta = this.apuestaMinima;  
         return this.apuesta;
     }
 
-    mostrarSaldo(): void {
+    public mostrarSaldo(): void {
         console.log("Saldo actual: " + this.cliente?.getSaldo());
     }
 
-    multiplicador(): void {
+    public multiplicador(): void {
 
         let multiplicador = Math.random() * 10;
         console.log("Multiplicador de la jugada: " + multiplicador);
     }
 
-    leerInstrucciones(): void {
+    public leerInstrucciones(): void {
         console.log("instrucciones")
     }
 

@@ -34,18 +34,18 @@ export class Dado extends Maquina{
 
 
      
-     iniciarJuego(): void {
+     public iniciarJuego(): void {
          console.log (`El juego ${this.nombre} se esta iniciando...`);
      }
 
-     generarResultado(): void {}
+     public generarResultado(): void {}
         
-     realizarApuesta(): number {
+     public realizarApuesta(): number {
       let opcion = readlineSync.questionInt("Debe elegir un numero del 1 al 6: "); 
       return opcion; 
      }
 
-     mostrarSaldo(): void {}
+     public mostrarSaldo(): void {}
 
       
     public jugar(): void {    
@@ -65,7 +65,7 @@ export class Dado extends Maquina{
       }
       
   
-     mostrarResultado(){//interface
+      public mostrarResultado(){//interface
      
     }
 }
