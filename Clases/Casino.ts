@@ -8,6 +8,7 @@ import { Ruleta } from './Ruleta';
 import { TragamonedaFruit } from './TragamonedaV2';
 import * as readlineSync from 'readline-sync';
 import * as fs from 'fs';
+import * as chalk from 'chalk';
 
 
 
@@ -29,43 +30,56 @@ export class Casino {
         return this.clientes
     }
 
- menuPrincipal() {
-    const  figlet = require("figlet");
-    figlet(`Bienvenido al CASINO ! ${this.getNombre()} `, function (err, data) {
-        if (err) {
-          console.log("Ha ocurrido un error inesperado..");
-          console.dir(err);
-          return;
-        }
-        console.log(data);
-      });
-        console.log("**********************************************************")
-        console.log(figlet);
-        console.log("**********************************************************")
-        console.log("1- Registrarse")
-        console.log("2- Iniciar Sesion")
-        console.log("0- Salir")
-        let opcion:string = readlineSync.question("elija una opcion:")
-        
-        switch(opcion) {
-            case "1": 
-                this.menuRegistro();
-            break;
-            case "2":
-                this.menuIniciarSesion();
-            break;
-            case "0": 
-            return
-            default:
-                console.log("Operacion no valida")
-                this.menuPrincipal();
-        }
+    menuPrincipal() {
+        const figlet = require("figlet");
+        figlet.text(
+            `Bienvenido al CASINO!  ${this.getNombre()}`,
+            {
+                font: "Standard", 
+                horizontalLayout: "fitted", 
+                verticalLayout: "fitted", 
+                width: 100,
+                whitespaceBreak: true, 
+            },
+            (err: Error | null, data: string | undefined) => {
+                if (err) {
+                    console.log("Ha ocurrido un error inesperado...");
+                    console.dir(err);
+                    return;
+                }
+                console.log("******************************************************************************************************");
+                console.log(data);
+                console.log("******************************************************************************************************");
+                console.log("")
+                console.log("1️⃣1 Registrarse");
+                console.log("2️⃣2 Iniciar Sesion");
+                console.log("0️⃣0 Salir");
     
+                // Obtener opción del usuario
+                console.log("");
+                const chalk = require('chalk');
+
+                let opcion = readlineSync.question(chalk.blue('Ingrese una opcion: '));
+                console.log("")
     
+                // Manejar opciones
+                switch (opcion) {
+                    case "1":
+                        this.menuRegistro();
+                        break;
+                    case "2":
+                        this.menuIniciarSesion();
+                        break;
+                    case "0":
+                        console.log("Gracias por visitar el casino. ¡Hasta luego!");
+                        return;
+                    default:
+                        console.log("Operación no válida. Intente de nuevo.");
+                        this.menuPrincipal();
+                }
+            }
+        );
     }
-
-
-
 
     //Registro  
     menuRegistro() {
@@ -84,20 +98,20 @@ export class Casino {
             return;
         }
     
-        let nombreUsuario: string = readlineSync.question("Ingrese Nombre: ");
-        let edad: number = readlineSync.questionInt("Ingrese Edad: ");
-        let dni: string = readlineSync.question("Ingrese DNI: ");
+        let nombreUsuario: string = readlineSync.question(chalk.yellow("Ingrese Nombre: "));
+        let edad: number = readlineSync.questionInt(chalk.yellow("Ingrese Edad: "));
+        let dni: string = readlineSync.question(chalk.yellow("Ingrese DNI: "));
     
         while (!nombreUsuario || !nombreUsuario.toLowerCase().replace(/[^a-z\#\&]+/g, "")) {
-            nombreUsuario = readlineSync.question("Por favor ingrese un nombre valido: ");
+            nombreUsuario = readlineSync.question(chalk.yellow("Por favor ingrese un nombre valido: "));
         }
     
         while (!edad || edad < 18) {
-            edad = readlineSync.questionInt("Por favor ingrese una edad (mayor de 18): ");
+            edad = readlineSync.questionInt(chalk.yellow("Por favor ingrese una edad (mayor de 18): "));
         }
     
         while (!dni || dni.length < 8 || dni.length >= 9) {
-            dni = readlineSync.question("Por favor ingrese dni valido (8 digitos): ");
+            dni = readlineSync.question(chalk.yellow("Por favor ingrese dni valido (8 digitos): "));
         }
     
         // Parseamos los datos
@@ -123,16 +137,20 @@ export class Casino {
                 saldo: cliente.getSaldo()
             });
         } else {
-            console.log("Ya existe un usuario con ese dni.");
+            console.log("");
+            console.log(chalk.bgRed("Ya existe un usuario con ese dni."));
+            console.log("");
             this.menuPrincipal();
         }
     
         // Guardamos los datos actualizados en el archivo
         try {
             fs.writeFileSync("clientes.txt", JSON.stringify(clientesTxt, null, 2), "utf8");
-            console.log("El archivo clientes.txt ha sido actualizado correctamente.");
+            console.log("");
+            console.log(chalk.bgYellow("El archivo clientes.txt ha sido actualizado correctamente."));
         } catch (error) {
-            console.error("Error al guardar el archivo:", error);
+            console.log("");
+            console.error(chalk.bgRed("Error al guardar el archivo:", error));
         }
     
         // Agregar al casino
@@ -143,20 +161,25 @@ export class Casino {
     
     public agregarCliente(cliente: Cliente): void {
         if (cliente.getEdad() < 18) {
-            console.log("Tienes que ser mayor de 18 años para poder registrarte");
+            console.log("");
+            console.log(chalk.bgRed("Tienes que ser mayor de 18 años para poder registrarte"));
         } else {
             this.clientes.push(cliente);
-            console.log("El cliente:", cliente.getNombre(), "fue agregado al casino");
+            console.log("");
+            console.log(chalk.bgGreen("El cliente:", cliente.getNombre(), "fue registrado con exito!"));
         }
     }
 
     menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky) { 
-        let dniUsuario = readlineSync.question("Ingrese su DNI para iniciar sesion: ")
+        console.log("");
+        let dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
         let intentos = 1;
         while(!dniUsuario || intentos === 2 ) {
-            readlineSync.question("Ingrese su DNI para iniciar sesion: ")
+            console.log("");
+            readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
             if(intentos === 3 ){
-                console.log("Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde!")
+                console.log("");
+                console.log(chalk.red("❌ Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde!"))
                 return
             }
             intentos++
@@ -177,10 +200,11 @@ export class Casino {
     
     
             fs.writeFileSync(nombreArchivo, contenido, 'utf8');
-            console.log(`El archivo se guardó correctamente como ${nombreArchivo}`);
+            console.log("");
+            console.log(chalk.green(`✅ El archivo se guardó correctamente como ${nombreArchivo}`));
         } catch (err) {
-    
-            console.error("Hubo un error al guardar el archivo: ", err);
+            console.log("");
+            console.error(chalk.bgRed("Hubo un error al guardar el archivo: ", err));
         }
     }
 
@@ -202,16 +226,18 @@ export class Casino {
             const cliente = clientes.find((v) => v.getDni() === dni);
     
             if (cliente) {
-                console.log(`Bienvenido ${cliente.getNombre()} seras redirigido al casino!`);
+                console.log(chalk.bgGreen(`✨ Bienvenido ${cliente.getNombre()} seras redirigido al casino! ✨`));
                 // Aquí puedes redirigir al menú principal del casino para clientes registrados
             this.menu(cliente); // Asegúrate de tener implementado este método en Casino
                 
             } else {
-                console.log("No existe un usuario con ese DNI.");
+                console.log("");
+                console.log(chalk.red("❌ No existe un usuario con ese DNI."));
             }
             
         } catch (err) {
-            console.error("Hubo un error al leer el archivo:", err);
+            console.log('');
+            console.error(chalk.bgRed("Hubo un error al leer el archivo:", err));
         }
     }
 
@@ -222,7 +248,7 @@ export class Casino {
         this.juegos.push(tragamoneda1);
         this.juegos.push(tragamoneda2);
         this.juegos.forEach(juego => {
-        console.log ("El juego : ", juego.getNombre(), `fue agregado al casino`);
+        console.log (chalk.green("El juego🎰 : ", juego.getNombre(), `fue agregado al casino`));
         }); 
     }
     
