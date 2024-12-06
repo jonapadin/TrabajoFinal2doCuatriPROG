@@ -3,8 +3,6 @@ import * as readlineSync from 'readline-sync'
 import { Cliente } from "./Cliente";
 import * as fs from 'fs';
 
-
-
 export class Ruleta extends Maquina {
     private bola: number = 0;
     private numerosRojos: number[] = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
@@ -17,7 +15,6 @@ export class Ruleta extends Maquina {
         super("Ruleta Smash", 250)
         this.cliente = cliente;
     }
-
 
     //mensaje de que se esta iniciando el juego para luego apostar
     public iniciarJuego(): void {
@@ -192,7 +189,6 @@ export class Ruleta extends Maquina {
     } 
     } 
       
-
     public generarResultado() {
         this.bola = Math.floor(Math.random() * 2);
 

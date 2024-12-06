@@ -2,7 +2,6 @@ import { Cliente } from "./Cliente";
 import { Maquina } from "./Maquina";
 
 export abstract class Tragamoneda extends Maquina {
-
     private apuesta: number;
     protected cliente? : Cliente;
     
@@ -11,7 +10,6 @@ export abstract class Tragamoneda extends Maquina {
         this.apuesta = 0;
         this.cliente = cliente;
     }
-
 
     public iniciarJuego(): void {
         console.log("Iniciando el juego de tragamonedas: " + this.nombre);
@@ -22,7 +20,6 @@ export abstract class Tragamoneda extends Maquina {
         console.log("Generando el resultado...");
     }
      
-
     public jugar(): void {
 
         if(this.cliente) {
@@ -52,7 +49,6 @@ export abstract class Tragamoneda extends Maquina {
     public leerInstrucciones(): void {
         console.log("instrucciones")
     }
-
 
     public validarSaldo(saldo: number): number {
         if (saldo < this.apuestaMinima) {

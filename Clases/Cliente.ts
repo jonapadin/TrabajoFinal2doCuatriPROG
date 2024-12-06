@@ -1,14 +1,9 @@
 export class Cliente {
-
-    
-
     private nombre: string;
     private edad: number;
     private dni:string;
     private saldo: number ;
 
-    
-    
     constructor(nombre: string, edad: number,dni:string, saldo?: number) {
         this.nombre = nombre;
         this.edad = edad;
@@ -16,35 +11,34 @@ export class Cliente {
         this.saldo = saldo ?? 0;
     }
 
-    getNombre():string {
+    public getNombre():string {
         return this.nombre
     }
-    getEdad():number {
+    public getEdad():number {
         return this.edad
     }
 
-    getDni():string {
+    public getDni():string {
         return this.dni
     }
 
-    getSaldo(): number {
+    public getSaldo(): number {
         return this.saldo
     }
 
-    setSaldo(saldo:number): void{ 
+    public setSaldo(saldo:number): void{ 
         this.saldo = saldo; 
     }
 
-    setNombre(nombre: string): void {
+    public setNombre(nombre: string): void {
         this.nombre = nombre;
     }
-    setEdad(edad: number): void {
+
+    public setEdad(edad: number): void {
         this.edad = edad;
     }
 
-   
-
-    agregarSaldo(saldo: number): void {
+    public agregarSaldo(saldo: number): void {
         if (saldo <= 0) {
             console.log("El monto para agregar debe ser mayor a cero.");
             return;
@@ -55,7 +49,7 @@ export class Cliente {
        
     }
 
-    apostar(monto: number): boolean {
+    public apostar(monto: number): boolean {
         if (monto <= 0) {
             console.log("El monto de la apuesta debe ser mayor a cero.");
             return false;

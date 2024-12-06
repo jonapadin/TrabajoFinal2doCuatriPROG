@@ -12,8 +12,6 @@ export class Dado extends Maquina{
         this.cliente = cliente;
     }
 
-
-
     public combinacionGanadora(){
       
     }
@@ -48,7 +46,7 @@ export class Dado extends Maquina{
      public mostrarSaldo(): void {}
 
       
-    public jugar(): void {    
+     public jugar(): void {    
       let seguirJugando = true; 
 
       while(seguirJugando){
@@ -64,9 +62,7 @@ export class Dado extends Maquina{
         }
       }
       
-  
       public mostrarResultado(){//interface
      
     }
 }
-    

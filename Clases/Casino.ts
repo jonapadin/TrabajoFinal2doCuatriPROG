@@ -1,6 +1,4 @@
-
 import { TragamonedaLucky } from './TragamonedaV1';
-
 import { Cliente } from './Cliente';
 import { Dado } from './Dado';
 import { Maquina } from "./Maquina";
@@ -9,8 +7,6 @@ import { TragamonedaFruit } from './TragamonedaV2';
 import * as readlineSync from 'readline-sync';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
-
-
 
 export class Casino {
     private clientes: Cliente[];
@@ -23,14 +19,14 @@ export class Casino {
         this.nombre = "BinBaires"
     }
 
-    getNombre():string{
+    public getNombre():string{
         return this.nombre
     }
-    getCliente (){
+    public getCliente (){
         return this.clientes
     }
 
-    menuPrincipal() {
+    public menuPrincipal() {
         const figlet = require("figlet");
         figlet.text(
             `Bienvenido al CASINO!  ${this.getNombre()}`,
@@ -81,15 +77,13 @@ export class Casino {
         );
     }
 
-    //Registro  
-    menuRegistro() {
+    //Registro de cliente
+    public menuRegistro() {
         this.crearCliente()
     
     }
 
-
-
-    crearCliente(cliente?: Cliente | null) {
+    public crearCliente(cliente?: Cliente | null) {
         let data: string;
         try {
             data = fs.readFileSync("clientes.txt", "utf-8");
@@ -170,7 +164,7 @@ export class Casino {
         }
     }
 
-    menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky) { 
+    public menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky) { 
         console.log("");
         let dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
         let intentos = 1;
@@ -187,13 +181,13 @@ export class Casino {
         this.seleccionarUsuario(dniUsuario);
      }
 
-     registrarCliente(nombreUsuario:string,edad:number,dni:string){
+    public registrarCliente(nombreUsuario:string,edad:number,dni:string){
         let cliente = new Cliente(nombreUsuario,edad,dni)
         this.agregarCliente(cliente)
         this.guardarEnArchivo("cliente.txt", this.getCliente())
     }
 
-    guardarEnArchivo(nombreArchivo: string, datos: any[]): void {
+    public guardarEnArchivo(nombreArchivo: string, datos: any[]): void {
         try {
             // Convertir los datos a formato JSON
             const contenido = JSON.stringify(datos, null, 2); // El "2" es para formatear el JSON con indentación para que sea legible
@@ -208,8 +202,7 @@ export class Casino {
         }
     }
 
-
-    seleccionarUsuario(dni: string) {
+    public seleccionarUsuario(dni: string) {
         try {
             // Leer el archivo de manera sincrónica
             const data = fs.readFileSync('clientes.txt', 'utf-8');
@@ -251,10 +244,8 @@ export class Casino {
         console.log (chalk.green("El juego🎰 : ", juego.getNombre(), `fue agregado al casino`));
         }); 
     }
-    
 
-
-     menuJuegos(cliente:Cliente){
+    public menuJuegos(cliente:Cliente){
 
       if(this.agregarJuegos.length === 0) {
         console.log("No hay juegos disponibles");
@@ -291,8 +282,7 @@ export class Casino {
       }
     }
 
-
-    menuInstrucciones(cliente:Cliente){
+    public menuInstrucciones(cliente:Cliente){
         console.log(`1. Instrucciones juego: Dado `);
         console.log(`2. Instrucciones juego: Ruleta`);
         console.log(`3. Instrucciones juegos: Tragamonedas`);
@@ -321,7 +311,7 @@ export class Casino {
        this.menuInstrucciones(cliente);
     }
 
-    menu(cliente:Cliente): void{
+    public menu(cliente:Cliente): void{
 
         console.log("******************************************************************************"); 
         console.log (`Bienvenido ${cliente.getNombre()} a el casino: ${this.getNombre()} !. Tu saldo actual es de: ${cliente.getSaldo()}`); 
@@ -357,7 +347,6 @@ export class Casino {
                         console.error(err);
                         return;
                     }
-                    
                     // Parsear el contenido del archivo a un array de objetos
                     const clientesTxt: { nombre: string, edad: number, dni: string, saldo: number }[] = JSON.parse(data);
                 
@@ -368,10 +357,9 @@ export class Casino {
                         console.log("No se encontró un cliente con ese DNI.");
                         return;
                     }
-                
                     // Actualizamos el saldo del cliente
                     clientesTxt[clienteIndex].saldo = cliente.getSaldo(); // Actualizamos el saldo con el nuevo valor
-                
+               
                     // Escribir los datos modificados de nuevo en el archivo
                     fs.writeFile("clientes.txt", JSON.stringify(clientesTxt, null, 2), (err) => {
                         if (err) {
@@ -389,8 +377,7 @@ export class Casino {
         this.menu(cliente);
     }
 
-    
-    instruccionesDado(): void {
+    public instruccionesDado(): void {
         try {
             const data = fs.readFileSync('dado.txt', 'utf-8');
     
@@ -401,8 +388,7 @@ export class Casino {
         }
     }
 
-
-    instruccionesRuleta(): void {
+    public instruccionesRuleta(): void {
         try {
             const data = fs.readFileSync('ruleta.txt', 'utf-8');
     
@@ -413,7 +399,7 @@ export class Casino {
         }
     }
 
-    instruccionesTragamoneda(): void {
+    public instruccionesTragamoneda(): void {
         try {
             const data = fs.readFileSync('tragamonedas.txt', 'utf-8');
     
@@ -423,35 +409,32 @@ export class Casino {
             console.error('Error al leer o parsear el archivo tragamoneda.txt:', err);
         }
     }
-
     
-    crearRuleta(cliente:Cliente){
+    public crearRuleta(cliente:Cliente){
         const ruleta = new Ruleta(cliente)
         ruleta.iniciarJuego();
         ruleta.jugar(); 
         cliente.getSaldo()
     }
-
     
-  crearDado(cliente:Cliente){
+    public crearDado(cliente:Cliente){
     const dado = new Dado(cliente);
     dado.iniciarJuego();
     dado.jugar();
     cliente.getSaldo()
-}
+    }
 
-crearTragamonedaLucky(cliente:Cliente){
+    public crearTragamonedaLucky(cliente:Cliente){
     const tragamoneda = new TragamonedaLucky(cliente);
     tragamoneda.iniciarJuego();
     tragamoneda.jugar();
     cliente.getSaldo()
-}
+    }
 
-crearTragamonedaFruit(cliente:Cliente){
+    public crearTragamonedaFruit(cliente:Cliente){
     const tragamoneda = new TragamonedaFruit(cliente)
     tragamoneda.iniciarJuego()
     tragamoneda.jugar();
     cliente.getSaldo()
-}
-
+    }
 }

@@ -33,8 +33,6 @@ export abstract class Maquina implements Jugar{
     abstract realizarApuesta():number;
     abstract mostrarSaldo():void;
 
-
-  
     public validarSaldo(saldo:number):number{
         return saldo
     }

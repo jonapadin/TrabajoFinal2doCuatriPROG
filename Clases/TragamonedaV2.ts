@@ -19,7 +19,6 @@ export class TragamonedaFruit extends Tragamoneda {
 
     }
 
-
     public iniciarJuego(): void {
         console.log(`Estas iniciando el juego ${this.getNombre()}`);
     }
@@ -83,15 +82,13 @@ export class TragamonedaFruit extends Tragamoneda {
                 return true;
             } 
         }
-    
-
+ 
         console.log("Lo siento, no has ganado esta vez.");
         this.cliente?.apostar(this.apuestaMinima);
         console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
         return false; 
     }
     
-
     public mostrarSaldo(): void {
         if (this.cliente) {
             console.log(`Saldo actual: ${this.cliente.getSaldo()}`);

@@ -3,12 +3,10 @@ import * as readlineSync from 'readline-sync';
 import { Tragamoneda } from './Tragamoneda';
 
 export class TragamonedaLucky extends Tragamoneda {
-
     private valor1: number;
     private valor2: number;
     private valor3: number;
     private valoresPosibles: number[];
-
 
     constructor(cliente?: Cliente) {
         super("Lucky Slot", 100); // Nombre del juego y apuesta mínima
@@ -20,12 +18,11 @@ export class TragamonedaLucky extends Tragamoneda {
         this.cliente = cliente;
     }
 
-
-    iniciarJuego(): void {
+    public iniciarJuego(): void {
         console.log(`Estás iniciando el juego ${this.getNombre()}`);
     }
 
-    realizarApuesta(): number {
+    public realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
         if (apuesta >= 1 && apuesta <= 10) {
             console.log(`Apuesta aceptada: ${apuesta}`);
@@ -36,9 +33,8 @@ export class TragamonedaLucky extends Tragamoneda {
         return apuesta;
     }
 
-
     // Generar un resultado aleatorio
-    generarResultado(): void {
+    public generarResultado(): void {
         if( this.valoresPosibles.length === 0) {
             console.error("Maquina fuera de servicio!");
             return;
@@ -50,9 +46,8 @@ export class TragamonedaLucky extends Tragamoneda {
          console.log(`Combinación generada: ${this.valor1}, ${this.valor2}, ${this.valor3}`);
     }
 
-
     // Método para verificar si el valor ingresado es parte de una combinación ganadora
-    juegoGanador(): boolean {
+    public juegoGanador(): boolean {
         const apuesta = this.realizarApuesta();
         
         if (this.valor1 === apuesta && this.valor2 === apuesta && this.valor3 === apuesta) {
@@ -60,7 +55,6 @@ export class TragamonedaLucky extends Tragamoneda {
             this.cliente?.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
             return true; 
         }
-
         // Comprobamos si al menos dos rodillos tienen el valor
         let contador = 0;
         if (this.valor1 === apuesta) contador++;
@@ -72,9 +66,7 @@ export class TragamonedaLucky extends Tragamoneda {
             console.log(`¡Has ganado parcialmente! El valor ${apuesta} aparece en ${contador} rodillo(s).`);
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
             return true; 
-        }
-
-        
+        }   
         console.log(`Lo siento, el valor ${apuesta} no está en la combinación.`);
         if(this.cliente) {
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
@@ -85,12 +77,7 @@ export class TragamonedaLucky extends Tragamoneda {
         }
     }
 
-
-
-    jugar(): void {
-
-
-
+    public jugar(): void {
         if(this.cliente) {
 
 
@@ -111,25 +98,18 @@ export class TragamonedaLucky extends Tragamoneda {
                 }
         }
 
-
-      
     }
 
-
-  
-
-mostrarSaldo() {
+    public mostrarSaldo() {
     if (this.cliente) {
         console.log(`Tu saldo es: ${this.cliente.getSaldo()}`);
     } else {
         console.log("No hay un cliente asociado.");
     }
-}
+    }
 
-    multiplicador(): void {
+    public multiplicador(): void {
         let multiplicador = Math.random() * 3 + 1; 
         console.log(`Multiplicador: ${multiplicador}`);
     }
-
-
 }
