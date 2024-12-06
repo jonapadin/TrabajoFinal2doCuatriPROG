@@ -64,7 +64,5 @@ export class Dado extends Maquina{
         }
       }
       
-      public mostrarResultado(){//interface
-     
-    }
+ 
 }
