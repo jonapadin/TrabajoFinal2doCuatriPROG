@@ -219,6 +219,7 @@ export class Casino {
             const cliente = clientes.find((v) => v.getDni() === dni);
     
             if (cliente) {
+
                 console.log(chalk.bgBlue(`✨ Bienvenido ${cliente.getNombre()} seras redirigido al casino! ✨`));
                 // Aquí puedes redirigir al menú principal del casino para clientes registrados
             this.menu(cliente); // Asegúrate de tener implementado este método en Casino
