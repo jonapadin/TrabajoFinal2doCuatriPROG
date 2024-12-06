@@ -219,7 +219,7 @@ export class Casino {
             const cliente = clientes.find((v) => v.getDni() === dni);
     
             if (cliente) {
-                console.log(chalk.bgGreen(`✨ Bienvenido ${cliente.getNombre()} seras redirigido al casino! ✨`));
+                console.log(chalk.bgBlue(`✨ Bienvenido ${cliente.getNombre()} seras redirigido al casino! ✨`));
                 // Aquí puedes redirigir al menú principal del casino para clientes registrados
             this.menu(cliente); // Asegúrate de tener implementado este método en Casino
                 
@@ -248,15 +248,15 @@ export class Casino {
     public menuJuegos(cliente:Cliente){
 
       if(this.agregarJuegos.length === 0) {
-        console.log("No hay juegos disponibles");
-      }else {
-        console.log(`1. Iniciar Ruleta `);
-        console.log(`2. Iniciar Dado`);
-        console.log(`3. Iniciar Tragamoneda Fruit`);
-        console.log(`4. Iniciar Tragamoneda Lucky`);
-        console.log(`5. volver`);
+        console.log(chalk.bgBlue("No hay juegos disponibles"));
+    }else {
+        const opcion = readlineSync.question(chalk.blue("Seleccione un juego: ")); 
+        console.log(`1️⃣1 Iniciar Ruleta `);
+        console.log(`2️⃣2 Iniciar Dado`);
+        console.log(`3️⃣3 Iniciar Tragamoneda Fruit`);
+        console.log(`4️⃣4 Iniciar Tragamoneda Lucky`);
+        console.log(`5️⃣5 volver`);
     
-        const opcion = readlineSync.question("Seleccione un juego: "); 
     
         switch(opcion){
             case "1":
@@ -283,13 +283,13 @@ export class Casino {
     }
 
     public menuInstrucciones(cliente:Cliente){
-        console.log(`1. Instrucciones juego: Dado `);
-        console.log(`2. Instrucciones juego: Ruleta`);
-        console.log(`3. Instrucciones juegos: Tragamonedas`);
-        console.log(`4. volver`);
+        console.log(`1️⃣1 Instrucciones juego: Dado 🎲`);
+        console.log(`2️⃣2 Instrucciones juego: Ruleta 🎡`);
+        console.log(`3️⃣3 Instrucciones juegos: Tragamonedas 🎰`);
+        console.log(`4️⃣4 volver`);
     
     
-        const opcion = readlineSync.question("Elige una opcion: "); 
+        const opcion = readlineSync.question(chalk.blue("Ingrese una opcion: ")); 
         
         switch(opcion){
             case "1":
@@ -305,32 +305,34 @@ export class Casino {
              this.menu(cliente);
              break
              default:
-                console.log("Operacion no valida")
+                console.log(chalk.red("🔴 Operacion no valida"));
               
         }
        this.menuInstrucciones(cliente);
     }
 
     public menu(cliente:Cliente): void{
+        console.log("");
 
-        console.log("******************************************************************************"); 
-        console.log (`Bienvenido ${cliente.getNombre()} a el casino: ${this.getNombre()} !. Tu saldo actual es de: ${cliente.getSaldo()}`); 
-        console.log("******************************************************************************"); 
+        console.log("#########################################################################"); 
+        console.log (chalk.bgGreen(`Bienvenido ${cliente.getNombre()} a el casino: ${this.getNombre()} !. Tu saldo actual es de: ${cliente.getSaldo()}`)); 
+        console.log("#########################################################################"); 
     
-        console.log(`1. Agregar Saldo `);
-        console.log(`2. Seleccionar juegos`);
-        console.log(`3. Ver Instrucciones`);
-        console.log(`4. Retirar dinero`);
-        console.log(`5. Cerrar sesion`);
+        console.log("");
+        console.log(`1️⃣1 Agregar Saldo `);
+        console.log(`2️⃣2 Seleccionar juegos`);
+        console.log(`3️⃣3 Ver Instrucciones`);
+        console.log(`4️⃣4 Retirar dinero`);
+        console.log(`5️⃣5 Cerrar sesion`);
     
         console.log("-----------------------------------------------------------------"); 
         //Leer opcion del cliente
-        const opcion = readlineSync.question("Elige una opcion: "); 
+        const opcion = readlineSync.question(chalk.yellow("Elige una opcion: ")); 
     
         switch(opcion){
             case "1":
             //Opcion de recarga
-            const recargaSaldo = readlineSync.questionInt("Cuanto dinero desea ingresar a su cuenta?: "); 
+            const recargaSaldo = readlineSync.questionInt(chalk.yellow("Cuanto dinero desea ingresar a su cuenta?: ")); 
             cliente.agregarSaldo(recargaSaldo);
                 break
             case "2":
@@ -354,7 +356,8 @@ export class Casino {
                     let clienteIndex = clientesTxt.findIndex((c) => c.dni === cliente.getDni());
                 
                     if (clienteIndex === -1) {
-                        console.log("No se encontró un cliente con ese DNI.");
+                        console.log("");
+                        console.log(chalk.red("No se encontró un cliente con ese DNI."));
                         return;
                     }
                     // Actualizamos el saldo del cliente
@@ -363,13 +366,14 @@ export class Casino {
                     // Escribir los datos modificados de nuevo en el archivo
                     fs.writeFile("clientes.txt", JSON.stringify(clientesTxt, null, 2), (err) => {
                         if (err) {
-                            console.error("Error al guardar los datos del cliente:", err);
+                            console.error(chalk.bgRed("🔴 Error al guardar los datos del cliente:", err));
                             return;
                         }
-                        console.log("Datos del cliente actualizados correctamente.");
+                        console.log("");
+                        console.log(chalk.bgGreen("✅ Datos del cliente actualizados correctamente."));
                     });
-                
-                    console.log("Cerrando sesión, gracias, ¡vuelve pronto!");
+                    console.log("");
+                    console.log(chalk.bgBlue("Cerrando sesión, gracias, ¡vuelve pronto!"));
                 });
                 return  
             default: console.log("Eliga una opcion valida")
@@ -384,7 +388,7 @@ export class Casino {
             console.log(data)
     
         } catch (err) {
-            console.error('Error al leer o parsear el archivo tragamoneda.txt:', err);
+            console.error((chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err)));
         }
     }
 
@@ -395,7 +399,7 @@ export class Casino {
             console.log(data)
     
         } catch (err) {
-            console.error('Error al leer o parsear el archivo tragamoneda.txt:', err);
+            console.error(chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err));
         }
     }
 
@@ -406,7 +410,7 @@ export class Casino {
             console.log(data)
     
         } catch (err) {
-            console.error('Error al leer o parsear el archivo tragamoneda.txt:', err);
+            console.error(chalk.bgRed('🔴 Error al leer o parsear el archivo tragamoneda.txt:', err));
         }
     }
     
