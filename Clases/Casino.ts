@@ -250,13 +250,13 @@ export class Casino {
       if(this.agregarJuegos.length === 0) {
         console.log(chalk.bgBlue("No hay juegos disponibles"));
     }else {
-        const opcion = readlineSync.question(chalk.blue("Seleccione un juego: ")); 
         console.log(`1️⃣1 Iniciar Ruleta `);
         console.log(`2️⃣2 Iniciar Dado`);
         console.log(`3️⃣3 Iniciar Tragamoneda Fruit`);
         console.log(`4️⃣4 Iniciar Tragamoneda Lucky`);
         console.log(`5️⃣5 volver`);
-    
+        
+        const opcion = readlineSync.question(chalk.blue("Seleccione un juego: ")); 
     
         switch(opcion){
             case "1":
