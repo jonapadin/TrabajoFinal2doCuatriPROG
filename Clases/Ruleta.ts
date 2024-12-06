@@ -212,18 +212,7 @@ export class Ruleta extends Maquina {
     } 
       
 
-    //    let seguirJugando = true; 
 
-    //    while(seguirJugando){
-    //        this.generarResultado();
-
-    //        const seguir = readlineSync.keyInYN("Queres jugar de nuevo o Salir ? "); //apretar y o n para seguir
-    //            if (!seguir){
-    //                console.log ("Muchas gracias por Jugar con nosotros!"); 
-    //                seguirJugando = false; 
-    //            }
-    //    }
-    }
 
     generarResultado() {
         // const apuesta = this.realizarApuesta(); //llama a realizarApuesta, "ingrese un numero para apostar"
