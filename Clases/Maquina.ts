@@ -28,9 +28,8 @@ export abstract class Maquina implements Jugar{
     //METODOS DE LA INTERFACE JUGAR
     abstract iniciarJuego():void;
     abstract generarResultado(): void;
-    abstract retirarseJuego():void;
+  
     abstract jugar():void
-    
     abstract realizarApuesta():number;
     abstract mostrarSaldo():void;
 

@@ -90,11 +90,7 @@ export class TragamonedaFruit extends Tragamoneda {
         console.log(`Tu saldo es ahora: ${this.cliente?.getSaldo()}`);
         return false; 
     }
-
-    retirarseJuego(): void {
-        console.log(`Te retiraste del juego ${this.nombre} `);
-     }
-     
+    
 
     mostrarSaldo(): void {
         if (this.cliente) {

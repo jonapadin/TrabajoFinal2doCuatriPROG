@@ -214,9 +214,7 @@ export class Ruleta extends Maquina {
         }
         return this.bola
     }
-    retirarseJuego(): void {
-        console.log(`Te retiraste del juego ${this.nombre} `);
-     }
+
      
 
     mostrarSaldo(): void {
