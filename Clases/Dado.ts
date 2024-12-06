@@ -4,11 +4,10 @@ import * as fs from 'fs';
 import { Cliente } from "./Cliente";
 
 export class Dado extends Maquina{
-  
     private cliente?: Cliente;
 
     constructor (cliente?: Cliente){
-        super("da2",250)
+        super("🎲 da2",250)
         this.cliente = cliente;
     }
 
@@ -18,28 +17,26 @@ export class Dado extends Maquina{
 
     public tirarDado(){
       const apuesta = this.realizarApuesta();
-      console.log ("Lanzando el dado ... ");
+      console.log ("🎲 Lanzando el dado ... ");
       const resultado = Math.floor(Math.random()*6) +1;
-      console.log (`El resultado es: ${resultado}`);
+      console.log (`🎲 El resultado es: ${resultado}`);
       if (apuesta === resultado){
-          console.log ("Felicitaciones! usted gano ..."); 
+          console.log ("🎉 Felicitaciones! usted gano ..."); 
          this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
       }else{
-          console.log ("Perdio..."); 
+          console.log ("😥 Perdio..."); 
           this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
       }
      }
 
-
-     
      public iniciarJuego(): void {
-         console.log (`El juego ${this.nombre} se esta iniciando...`);
+         console.log (`⏳¡El juego ${this.nombre} se esta iniciando...!⌛`);
      }
 
      public generarResultado(): void {}
         
      public realizarApuesta(): number {
-      let opcion = readlineSync.questionInt("Debe elegir un numero del 1 al 6: "); 
+      let opcion = readlineSync.questionInt(" Debe elegir un numero del 1 al 6: "); 
       return opcion; 
      }
 
@@ -56,7 +53,7 @@ export class Dado extends Maquina{
       this.mostrarSaldo(); 
           const seguir = readlineSync.keyInYN("Queres jugar de nuevo o Salir ? "); //apretar y o n para seguir
             if (!seguir){
-                console.log ("Muchas gracias por Jugar con nosotros!"); 
+                console.log ("😊 Muchas gracias por Jugar con nosotros!"); 
                 seguirJugando = false; 
             }
         }

@@ -12,47 +12,43 @@ export abstract class Tragamoneda extends Maquina {
     }
 
     public iniciarJuego(): void {
-        console.log("Iniciando el juego de tragamonedas: " + this.nombre);
+        console.log("📲 Iniciando el juego de tragamonedas: " + this.nombre);
     }
 
     public generarResultado(): void {
 
-        console.log("Generando el resultado...");
+        console.log("🎰 Generando el resultado...");
     }
      
     public jugar(): void {
 
         if(this.cliente) {
             if (this.cliente?.getSaldo() < this.apuestaMinima) {
-                console.log("Saldo insuficiente para jugar.");
+                console.log("❌ Saldo insuficiente para jugar.");
                 return;
             }
         }
     }
 
     public realizarApuesta(): number {
-        console.log("Realizando apuesta...");
+        console.log("💰 Realizando apuesta...");
         this.apuesta = this.apuestaMinima;  
         return this.apuesta;
     }
 
     public mostrarSaldo(): void {
-        console.log("Saldo actual: " + this.cliente?.getSaldo());
+        console.log("💰 Saldo actual: " + this.cliente?.getSaldo());
     }
 
     public multiplicador(): void {
 
         let multiplicador = Math.random() * 10;
-        console.log("Multiplicador de la jugada: " + multiplicador);
-    }
-
-    public leerInstrucciones(): void {
-        console.log("instrucciones")
+        console.log("💰 Multiplicador de la jugada: " + multiplicador);
     }
 
     public validarSaldo(saldo: number): number {
         if (saldo < this.apuestaMinima) {
-            console.log("Saldo insuficiente.");
+            console.log("❌ Saldo insuficiente.");
             return 0;
         }
         return saldo;

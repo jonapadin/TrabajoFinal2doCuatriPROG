@@ -40,27 +40,27 @@ export class Cliente {
 
     public agregarSaldo(saldo: number): void {
         if (saldo <= 0) {
-            console.log("El monto para agregar debe ser mayor a cero.");
+            console.log("❌ El monto para agregar debe ser mayor a cero.");
             return;
         }else{
             this.setSaldo(this.getSaldo()+saldo); 
-            console.log(`Se agregó un saldo de ${saldo}. Saldo actual: $ ${this.getSaldo()}`);
+            console.log(`✔ Se agregó un saldo de ${saldo}. Saldo actual: $ ${this.getSaldo()}`);
         }
        
     }
 
     public apostar(monto: number): boolean {
         if (monto <= 0) {
-            console.log("El monto de la apuesta debe ser mayor a cero.");
+            console.log("❌ ¡El monto de la apuesta debe ser mayor a cero.!");
             return false;
         }
         if (this.getSaldo() < monto) {
-            console.log("No tienes suficiente saldo para realizar esta apuesta.");
+            console.log("❌ ¡No tienes suficiente saldo para realizar esta apuesta.!");
             return false;
         }
         
         this.setSaldo(this.getSaldo()-monto);
-        console.log(`Apuesta de ${monto} realizada. Saldo restante: $ ${this.getSaldo()}`);
+        console.log(`💰 ¡Apuesta de ${monto} realizada. Saldo restante: $ ${this.getSaldo()}!`);
         return true;
     }
 }

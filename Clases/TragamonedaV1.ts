@@ -9,7 +9,7 @@ export class TragamonedaLucky extends Tragamoneda {
     private valoresPosibles: number[];
 
     constructor(cliente?: Cliente) {
-        super("Lucky Slot", 100); // Nombre del juego y apuesta mínima
+        super("🎰Lucky Slot", 100); // Nombre del juego y apuesta mínima
         this.valor1 = 0;
         this.valor2 = 0;
         this.valor3 = 0;
@@ -19,15 +19,15 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
     public iniciarJuego(): void {
-        console.log(`Estás iniciando el juego ${this.getNombre()}`);
+        console.log(`📲 Estás iniciando el juego ${this.getNombre()}`);
     }
 
     public realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
         if (apuesta >= 1 && apuesta <= 10) {
-            console.log(`Apuesta aceptada: ${apuesta}`);
+            console.log(`✔ Apuesta aceptada: ${apuesta}`);
         } else {
-            console.log("El número es inválido. Ingrese un número entre 1 y 10.");
+            console.log("❌ El numero es inválido. Ingrese un numero entre 1 y 10.");
             return this.realizarApuesta(); // Vuelve a pedir un número si es inválido
         }
         return apuesta;
@@ -36,14 +36,14 @@ export class TragamonedaLucky extends Tragamoneda {
     // Generar un resultado aleatorio
     public generarResultado(): void {
         if( this.valoresPosibles.length === 0) {
-            console.error("Maquina fuera de servicio!");
+            console.error("❌ Maquina fuera de servicio!");
             return;
         }
 
         this.valor1 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
         this.valor2 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
         this.valor3 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
-         console.log(`Combinación generada: ${this.valor1}, ${this.valor2}, ${this.valor3}`);
+         console.log(`🎰 Combinación generada: ${this.valor1}, ${this.valor2}, ${this.valor3}`);
     }
 
     // Método para verificar si el valor ingresado es parte de una combinación ganadora
@@ -51,7 +51,7 @@ export class TragamonedaLucky extends Tragamoneda {
         const apuesta = this.realizarApuesta();
         
         if (this.valor1 === apuesta && this.valor2 === apuesta && this.valor3 === apuesta) {
-            console.log(`¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
+            console.log(`🎉¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
             this.cliente?.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
             return true; 
         }
@@ -63,16 +63,16 @@ export class TragamonedaLucky extends Tragamoneda {
 
         // Si al menos dos rodillos tienen el valor, es victoria parcial
         if (contador >= 1) {
-            console.log(`¡Has ganado parcialmente! El valor ${apuesta} aparece en ${contador} rodillo(s).`);
+            console.log(`🎉¡Has ganado parcialmente! El valor ${apuesta} aparece en ${contador} rodillo(s).`);
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
             return true; 
         }   
-        console.log(`Lo siento, el valor ${apuesta} no está en la combinación.`);
+        console.log(`😥 Lo siento, el valor ${apuesta} no está en la combinación.`);
         if(this.cliente) {
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
             return true;
         }  else {
-            console.log("No existe el cliente")
+            console.log("❌ No existe el cliente")
             return false
         }
     }
@@ -102,14 +102,14 @@ export class TragamonedaLucky extends Tragamoneda {
 
     public mostrarSaldo() {
     if (this.cliente) {
-        console.log(`Tu saldo es: ${this.cliente.getSaldo()}`);
+        console.log(`💰 Tu saldo es: ${this.cliente.getSaldo()}`);
     } else {
-        console.log("No hay un cliente asociado.");
+        console.log("❌ No hay un cliente asociado.");
     }
     }
 
     public multiplicador(): void {
         let multiplicador = Math.random() * 3 + 1; 
-        console.log(`Multiplicador: ${multiplicador}`);
+        console.log(`💰Multiplicador: ${multiplicador}`);
     }
 }
