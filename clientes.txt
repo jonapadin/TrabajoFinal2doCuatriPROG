@@ -3,6 +3,6 @@
     "nombre": "admin",
     "edad": 24,
     "dni": "12345678",
-    "saldo": 5000
+    "saldo": 1500
   }
 ]

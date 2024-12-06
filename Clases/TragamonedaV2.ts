@@ -8,22 +8,36 @@ export class TragamonedaFruit extends Tragamoneda {
     private valor2: string;
     private valor3: string;
     private valoresPosibles: string [];
-    private cliente?: Cliente;
 
     constructor(cliente?: Cliente) {
-        super("Fruit King",100,1500);
+        super("Fruit King",50);
         this.valor1 = "";
         this.valor2 = "";
         this.valor3 = "";
         this.cliente = cliente;
-        this.valoresPosibles = ["Fresa","Limon","Sandia"];
+        this.valoresPosibles = ["🍓","🍋","🍉"];
+
     }
-
-
 
 
     iniciarJuego(): void {
         console.log(`Estas iniciando el juego ${this.getNombre()}`);
+    }
+
+    realizarApuesta(): number {
+        let apuesta = readlineSync.questionInt("Ingrese apuesta: ");
+        if (this.cliente) {
+            if (apuesta > this.cliente.getSaldo()) {
+                console.log("Saldo insuficiente!");
+                return this.realizarApuesta(); 
+            } else if (apuesta < this.apuestaMinima) {
+                console.log(`La apuesta mínima es de ${this.apuestaMinima}`);
+                return this.realizarApuesta(); 
+            }
+        }
+    
+        console.log(`Apuesta aceptada: ${apuesta}`);
+        return apuesta;
     }
 
     generarResultado(): void {
@@ -40,44 +54,29 @@ export class TragamonedaFruit extends Tragamoneda {
         
     }
 
-    realizarApuesta(): number {
-        let apuesta = readlineSync.questionInt("Ingrese apuesta:");
-        if(this.cliente) {            
-            if(apuesta > this.cliente.getSaldo()){
-                console.log("Saldo insuficiente!");
-                return this.realizarApuesta();            
-            } else if (apuesta < this.apuestaMinima) {
-                console.log(`La apuesta minima es de ${this.apuestaMinima}`);
-                return this.realizarApuesta();
-            }
-        }
-
-        console.log(`Apuesta aceptada: ${apuesta}`);
-        
-        return apuesta;
-    }
-
     juegoGanador(): boolean {
-        const apuesta = this.realizarApuesta();
-    
+        if (!this.cliente) {
+            console.log("No hay cliente asociado.");
+            return false;
+        }
 
         if (this.valor1 === this.valor2 && this.valor2 === this.valor3) {
 
-            if (this.valor1 === "Fresa") {
+            if (this.valor1 === "🍓") {
                 console.log("¡Ganaste el premio Major con 3 Fresas!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 5); 
                 console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
-            else if (this.valor1 === "Limón") {
+            else if (this.valor1 === "🍋") {
                 console.log("¡Ganaste el premio Mini con 3 Limones!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 2); 
                 console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
                 return true;
             } 
 
-            else if (this.valor1 === "Sandía") {
+            else if (this.valor1 === "🍉") {
                 console.log("¡Ganaste el Jackpot con 3 Sandías!");
                 this.cliente?.agregarSaldo(this.apuestaMinima * 10); 
                 console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
@@ -92,37 +91,36 @@ export class TragamonedaFruit extends Tragamoneda {
         return false; 
     }
 
-    retirarse(): void {
-        console.log("Te has retirado del juego. ¡Gracias por jugar!");
-    }
-
+    retirarseJuego(): void {
+        console.log(`Te retiraste del juego ${this.nombre} `);
+     }
+     
 
     mostrarSaldo(): void {
-        console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
-    }
-
-    leerInstrucciones(): void {
-
-    }
-
-
-
-    jugar(): void {
-        let seguirJugando = true;
-
-        while (seguirJugando) {
-            console.clear();
-            this.iniciarJuego();
-            this.generarResultado();
-            this.juegoGanador();
-            this.mostrarSaldo();
-
-            const seguir = readlineSync.keyInYNStrict("¿Quieres jugar de nuevo o salir? (Y/N)");
-            if (!seguir) {
-                console.log("¡Muchas gracias por jugar con nosotros!");
-                seguirJugando = false;
-            }
+        if (this.cliente) {
+            console.log(`Saldo actual: ${this.cliente.getSaldo()}`);
+        } else {
+            console.log("Cliente no está disponible.");
         }
     }
+
+    jugar(): void {
+        console.clear();
+        this.iniciarJuego();
+        this.generarResultado();
+        this.juegoGanador();
+        this.mostrarSaldo();
+
+    let seguirJugando:boolean = true;
+    let pregunta:string = readlineSync.question("Deseas seguir jugando?: ").toLowerCase();
+    if(pregunta === "si") {
+        this.generarResultado();
+        this.juegoGanador();
+        this.mostrarSaldo();
+    } else if(pregunta === "no") {
+        seguirJugando = false;
+    }
+}
+
 
 }

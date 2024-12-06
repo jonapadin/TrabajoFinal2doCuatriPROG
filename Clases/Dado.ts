@@ -39,7 +39,9 @@ export class Dado extends Maquina{
      }
 
      generarResultado(): void {}
-     retirarse(): void {}
+     retirarseJuego(): void {
+        console.log(`Te retiraste del juego ${this.nombre} `);
+     }
      
      realizarApuesta(): number {
       let opcion = readlineSync.questionInt("Debe elegir un numero del 1 al 6: "); 
@@ -48,13 +50,6 @@ export class Dado extends Maquina{
 
      mostrarSaldo(): void {}
 
-
-     multiplicador(): void {
-         
-     }
-    leerInstrucciones(): void {
-
-    }
       
     public jugar(): void {    
       let seguirJugando = true; 

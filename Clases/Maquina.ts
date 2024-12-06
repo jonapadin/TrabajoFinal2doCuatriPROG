@@ -28,15 +28,11 @@ export abstract class Maquina implements Jugar{
     //METODOS DE LA INTERFACE JUGAR
     abstract iniciarJuego():void;
     abstract generarResultado(): void;
-    abstract retirarse():void;
+    abstract retirarseJuego():void;
     abstract jugar():void
     
     abstract realizarApuesta():number;
     abstract mostrarSaldo():void;
-    // abstract numeroAleatorio(): void;
-    abstract multiplicador():void;
-    abstract leerInstrucciones():void;
-    // abstract montoApuesta():number;//se agrega este metodo para comparar el saldo dle cliente con el que aposto en la maquina
 
 
   

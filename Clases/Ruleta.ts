@@ -21,18 +21,6 @@ export class Ruleta extends Maquina {
 
     
 
-    public girarRuleta(): number {
-        this.bola = Math.floor(Math.random() * 2);
-
-        if (this.bola === this.numeroVerde) {
-            console.log("La bola ha caído en el número verde (0).");
-        } else if (this.numerosRojos.includes(this.bola)) {
-            console.log(`La bola ha caído en ${this.bola} rojo.`);
-        } else if (this.numerosNegros.includes(this.bola)) {
-            console.log(`La bola ha caído en ${this.bola} negro.`);
-        }
-        return this.bola
-    }
 
     //mensaje de que se esta iniciando el juego para luego apostar
     iniciarJuego(): void {
@@ -82,7 +70,7 @@ export class Ruleta extends Maquina {
                     }
                 
 
-                    const resultadoRuleta = this.girarRuleta();
+                    const resultadoRuleta = this.generarResultado();
                     console.log(`El resultado de la ruleta es: ${resultadoRuleta}`);
                 
                     // Verificar si el cliente ganó
@@ -119,7 +107,7 @@ export class Ruleta extends Maquina {
                         respuesta = readlineSync.question("Elige un color a apostar ROJO/NEGRO: ").toUpperCase();
                        }
 
-                       const resultadoRuleta = this.girarRuleta();
+                       const resultadoRuleta = this.generarResultado();
 
                        if(resultadoRuleta === 0 ) {
                         console.log("Perdiste la bola ha caido en el 0");
@@ -172,7 +160,7 @@ export class Ruleta extends Maquina {
                     }
 
 
-                    const resultadoRuleta = this.girarRuleta();
+                    const resultadoRuleta = this.generarResultado();
 
                     if(resultadoRuleta === 0 ) {
                         console.log("Perdiste la bola ha caido en el 0");
@@ -215,21 +203,21 @@ export class Ruleta extends Maquina {
 
 
     generarResultado() {
-        // const apuesta = this.realizarApuesta(); //llama a realizarApuesta, "ingrese un numero para apostar"
-        // const resultadoRuleta = this.girarRuleta();
-        
-        // if (apuesta === resultadoRuleta) {
-        //     console.log("Fue tu jugada GANADORA!")
-        //     const ganancia = this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
-        // } else {
-        //     console.log("PERDISTE :(")
-        //     const perdida = this.cliente?.apostar(this.apuestaMinima); //envio por parametro el valor de la apuesta minima para descontarle el valor de la jugada
-        // }
+        this.bola = Math.floor(Math.random() * 2);
 
-        // return resultadoRuleta
+        if (this.bola === this.numeroVerde) {
+            console.log("La bola ha caído en el número verde (0).");
+        } else if (this.numerosRojos.includes(this.bola)) {
+            console.log(`La bola ha caído en ${this.bola} rojo.`);
+        } else if (this.numerosNegros.includes(this.bola)) {
+            console.log(`La bola ha caído en ${this.bola} negro.`);
+        }
+        return this.bola
     }
-
-    retirarse(): void {}
+    retirarseJuego(): void {
+        console.log(`Te retiraste del juego ${this.nombre} `);
+     }
+     
 
     mostrarSaldo(): void {
         console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
@@ -237,16 +225,6 @@ export class Ruleta extends Maquina {
 
     multiplicador(): void {}
 
-    leerInstrucciones(): void {
-        try {
-            const data = fs.readFileSync('ruleta.txt', 'utf-8');
-    
-            console.log(data)
-    
-        } catch (err) {
-            console.error('Error al leer o parsear el archivo ruleta.txt:', err);
-        }
-    }
 
     realizarApuesta(): number {
         let apuesta = readlineSync.questionInt("Ingrese el numero a apostar:  ")

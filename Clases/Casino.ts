@@ -181,11 +181,11 @@ export class Casino {
             const data = fs.readFileSync('clientes.txt', 'utf-8');
     
             // Parsear los datos a JSON
-            const clienteTxt: { nombre: string; edad: number; dni: string }[] = JSON.parse(data);
+            const clienteTxt: { nombre: string; edad: number; dni: string, saldo:number }[] = JSON.parse(data);
     
             // Mapear a instancias de Cliente
             const clientes: Cliente[] = clienteTxt.map(
-                (cliente) => new Cliente(cliente.nombre, cliente.edad, cliente.dni)
+                (cliente) => new Cliente(cliente.nombre, cliente.edad, cliente.dni, cliente.saldo)
             );
     
             // Buscar el cliente por DNI
@@ -315,7 +315,38 @@ export class Casino {
                 break
             case "4":
                 break 
-                case "5":
+            case "5":
+                fs.readFile("clientes.txt", 'utf-8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    
+                    // Parsear el contenido del archivo a un array de objetos
+                    const clientesTxt: { nombre: string, edad: number, dni: string, saldo: number }[] = JSON.parse(data);
+                
+                    // Buscar el cliente en el array usando el DNI
+                    let clienteIndex = clientesTxt.findIndex((c) => c.dni === cliente.getDni());
+                
+                    if (clienteIndex === -1) {
+                        console.log("No se encontró un cliente con ese DNI.");
+                        return;
+                    }
+                
+                    // Actualizamos el saldo del cliente
+                    clientesTxt[clienteIndex].saldo = cliente.getSaldo(); // Actualizamos el saldo con el nuevo valor
+                
+                    // Escribir los datos modificados de nuevo en el archivo
+                    fs.writeFile("clientes.txt", JSON.stringify(clientesTxt, null, 2), (err) => {
+                        if (err) {
+                            console.error("Error al guardar los datos del cliente:", err);
+                            return;
+                        }
+                        console.log("Datos del cliente actualizados correctamente.");
+                    });
+                
+                    console.log("Cerrando sesión, gracias, ¡vuelve pronto!");
+                });
                 return  
             default: console.log("Eliga una opcion valida")
         }
@@ -381,7 +412,7 @@ crearTragamonedaLucky(cliente:Cliente){
 }
 
 crearTragamonedaFruit(cliente:Cliente){
-    const tragamoneda = new TragamonedaFruit()
+    const tragamoneda = new TragamonedaFruit(cliente)
     tragamoneda.iniciarJuego()
     tragamoneda.jugar();
     cliente.getSaldo()
