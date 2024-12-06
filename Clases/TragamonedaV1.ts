@@ -88,14 +88,6 @@ export class TragamonedaLucky extends Tragamoneda {
 
 
 
-
-
-
-    retirarseJuego(): void {
-        console.log(`Te retiraste del juego ${this.nombre} `);
-     }
-     
-
     jugar(): void {
 
 

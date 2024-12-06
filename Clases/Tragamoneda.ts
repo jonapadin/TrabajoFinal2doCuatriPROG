@@ -24,9 +24,7 @@ export abstract class Tragamoneda extends Maquina {
 
         console.log("Generando el resultado...");
     }
-    retirarseJuego(): void {
-        console.log(`Te retiraste del juego ${this.nombre} `);
-     }
+ 
      
 
     jugar(): void {
