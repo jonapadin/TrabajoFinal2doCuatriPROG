@@ -8,6 +8,7 @@ import * as readlineSync from 'readline-sync';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 
+
 export class Casino {
     private clientes: Cliente[];
     private juegos:Maquina[];
