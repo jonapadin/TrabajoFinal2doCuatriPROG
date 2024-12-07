@@ -2,6 +2,7 @@
  INSTRUCCIONES: DADO
 ====================
 
+<<<<<<< HEAD
 Descripción:
 Un juego sencillo en el que se lanza un dado. Ganas si el numero seleccionado es el ganador.
 
@@ -14,5 +15,22 @@ Cómo jugar:
 Reglas adicionales:
 - Se utiliza un dado de seis caras.
 - Cualquier número distinto entre 1 y 6 es considerado una pérdida.
+=======
+Inicio del Juego:
 
-¡Intenta tu suerte con los dados!
+Cuando empiece el juego, verás un mensaje indicando que el juego de dados está comenzando.
+
+Haz tu apuesta:
+
+Se te pedirá que elijas un número entre 1 y 6. Este número será tu apuesta.
+
+Lanza el dado:
+El dado se lanzará automáticamente, y el juego mostrará un número al azar entre 1 y 6.
+
+Si el número que elegiste coincide con el resultado del dado:
+¡Felicidades! Ganaste, y se duplicará el monto de tu apuesta en tu saldo.
+
+Si no coincide:
+Perdiste, y el monto mínimo de la apuesta se descontará de tu saldo.
+>>>>>>> esteban
+
