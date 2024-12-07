@@ -1,6 +1,6 @@
 import { Maquina } from "./Maquina";
 import * as readlineSync from 'readline-sync'
-import * as fs from 'fs';
+
 import { Cliente } from "./Cliente";
 
 export class Dado extends Maquina {
@@ -10,10 +10,6 @@ export class Dado extends Maquina {
     constructor(cliente?: Cliente) {
         super("da2", 250)
         this.cliente = cliente;
-    }
-
-    public combinacionGanadora() {
-
     }
 
     public tirarDado() {
