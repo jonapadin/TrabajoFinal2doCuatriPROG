@@ -196,7 +196,7 @@ export class Ruleta extends Maquina {
     } 
       
     public generarResultado():number {
-        this.bola = Math.floor(Math.random() * 2);
+        this.bola = Math.floor(Math.random() * 37);
 
         if (this.bola == this.numeroVerde) {
             console.log("La bola ha caído en el número (0)🟩.");
