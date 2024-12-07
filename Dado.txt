@@ -2,7 +2,6 @@
  INSTRUCCIONES: DADO
 ====================
 
-<<<<<<< HEAD
 Descripción:
 Un juego sencillo en el que se lanza un dado. Ganas si el numero seleccionado es el ganador.
 
@@ -32,5 +31,3 @@ Si el número que elegiste coincide con el resultado del dado:
 
 Si no coincide:
 Perdiste, y el monto mínimo de la apuesta se descontará de tu saldo.
->>>>>>> esteban
-
