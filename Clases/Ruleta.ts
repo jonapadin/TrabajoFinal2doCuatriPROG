@@ -36,10 +36,10 @@ export class Ruleta extends Maquina {
        let opcion:number = readlineSync.questionInt("Seleccione Apuesta: ")
        switch(opcion) {
             case 1:
-                console.log("La apuesta mínima es de: ", this.apuestaMinima);
+                console.log("La apuesta minima es de: ", this.apuestaMinima);
                 let cantidadNumeros: number;
                 do {
-                    cantidadNumeros = readlineSync.questionInt("Ingrese cuántos números quiere apostar (entre 1 y 36): ");
+                    cantidadNumeros = readlineSync.questionInt("Ingrese cuantos numeros quiere apostar (entre 1 y 36): ");
                 } while (cantidadNumeros < 1 || cantidadNumeros > 36);
                 
                 if (this.cliente && this.cliente.getSaldo() > 0) {
@@ -48,14 +48,14 @@ export class Ruleta extends Maquina {
                     for (let i = 0; i < cantidadNumeros; i++) {
                         let numeroSeleccionado: number;
                         do {
-                            numeroSeleccionado = readlineSync.questionInt("Ingrese el número al que quiere apostar (entre 0 y 36): ");
+                            numeroSeleccionado = readlineSync.questionInt("Ingrese el numero al que quiere apostar (entre 0 y 36): ");
                         } while (numeroSeleccionado < 0 || numeroSeleccionado > 36);
                 
                         let cantidadApostar: number;
                         do {
-                            cantidadApostar = readlineSync.questionInt(`Ingrese el monto a apostar al número ${numeroSeleccionado}: `);
+                            cantidadApostar = readlineSync.questionInt(`Ingrese el monto a apostar al numero ${numeroSeleccionado}: `);
                             if (cantidadApostar < this.apuestaMinima) {
-                                console.log("❌ La apuesta es menor que la apuesta mínima.");
+                                console.log("❌ La apuesta es menor que la apuesta minima.");
                             }
                         } while (cantidadApostar < this.apuestaMinima);
                 
