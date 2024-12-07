@@ -35,10 +35,19 @@ export class Ruleta extends Maquina {
        let opcion = readlineSync.questionInt("Seleccione Apuesta: ")
        switch(opcion) {
             case 1:
-                console.log("💰 La apuesta mínima es de: ", this.apuestaMinima);
-                let cantidadNumeros: number = readlineSync.questionInt("Ingrese cuantos numeros quiere apostar: ");
+                console.log("La apuesta mínima es de: ", this.apuestaMinima);
+                let cantidadNumeros: number 
+                do{
+                   cantidadNumeros = readlineSync.questionInt("Ingrese cuántos números quiere apostar (entre 1 y 36): ");
+                }
+                while(cantidadNumeros < 1 || cantidadNumeros > 36);
+
                 let comparador: number = cantidadNumeros * this.apuestaMinima; 
-                let cantidadApostar: number = readlineSync.questionInt("Seleccione la cantidad a apostar: ");
+                let cantidadApostar: number = readlineSync.questionInt("Ingrese el monto a apostar: ");
+                while (cantidadApostar < 0) {
+                    console.log("Ingresar un monto positivo");  
+                    cantidadApostar = readlineSync.questionInt("Ingrese el monto a apostar: ");
+                }
                 
                 if (this.cliente && comparador <= this.cliente.getSaldo()) { // Verificar que el saldo sea suficiente
                     for (let i = 0; i < cantidadNumeros; i++) {
