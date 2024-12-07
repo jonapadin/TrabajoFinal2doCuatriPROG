@@ -23,11 +23,11 @@ export class Casino {
     public getNombre():string{
         return this.nombre
     }
-    public getCliente (){
+    public getCliente():Cliente[]{
         return this.clientes
     }
 
-    public menuPrincipal() {
+    public menuPrincipal():void {
         const figlet = require("figlet");
         figlet.text(
             `Bienvenido al CASINO!  ${this.getNombre()}`,
@@ -56,7 +56,7 @@ export class Casino {
                 console.log("");
                 const chalk = require('chalk');
 
-                let opcion = readlineSync.question(chalk.blue('Ingrese una opcion: '));
+                let opcion:string = readlineSync.question(chalk.blue('Ingrese una opcion: '));
                 console.log("")
     
                 // Manejar opciones
@@ -79,12 +79,12 @@ export class Casino {
     }
 
     //Registro de cliente
-    public menuRegistro() {
+    public menuRegistro():void {
         this.crearCliente()
     
     }
 
-    public crearCliente(cliente?: Cliente | null) {
+    public crearCliente(cliente?: Cliente | null):void {
         let data: string;
         try {
             data = fs.readFileSync("clientes.txt", "utf-8");
@@ -118,7 +118,7 @@ export class Casino {
         }[] = JSON.parse(data);
     
         // Buscamos el cliente por su dni
-        let clienteIndex = clientesTxt.findIndex((c) => c.dni == dni);
+        let clienteIndex:number = clientesTxt.findIndex((c) => c.dni == dni);
     
         // Si el cliente no existe, lo agregamos como nuevo
         if (clienteIndex == -1) {
@@ -165,10 +165,10 @@ export class Casino {
         }
     }
 
-    public menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky) { 
+    public menuIniciarSesion(dado?:Dado,ruleta?:Ruleta,tragamoneda1?:TragamonedaFruit, tragamoneda2?:TragamonedaLucky):void { 
         console.log("");
-        let dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
-        let intentos = 1;
+        let dniUsuario:string = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
+        let intentos:number = 1;
         while(!dniUsuario || intentos == 2 ) {
             console.log("");
             readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
@@ -182,7 +182,7 @@ export class Casino {
         this.seleccionarUsuario(dniUsuario);
      }
 
-    public registrarCliente(nombreUsuario:string,edad:number,dni:string){
+    public registrarCliente(nombreUsuario:string,edad:number,dni:string):void{
         let cliente = new Cliente(nombreUsuario,edad,dni)
         this.agregarCliente(cliente)
         this.guardarEnArchivo("cliente.txt", this.getCliente())
@@ -203,10 +203,10 @@ export class Casino {
         }
     }
 
-    public seleccionarUsuario(dni: string) {
+    public seleccionarUsuario(dni: string):void {
         try {
             // Leer el archivo de manera sincrónica
-            const data = fs.readFileSync('clientes.txt', 'utf-8');
+            const data:string = fs.readFileSync('clientes.txt', 'utf-8');
     
             // Parsear los datos a JSON
             const clienteTxt: { nombre: string; edad: number; dni: string, saldo:number }[] = JSON.parse(data);
@@ -247,7 +247,7 @@ export class Casino {
         }); 
     }
 
-    public menuJuegos(cliente:Cliente){
+    public menuJuegos(cliente:Cliente):void{  
 
       if(this.agregarJuegos.length == 0) {
         console.log(chalk.bgBlue("No hay juegos disponibles"));
@@ -258,7 +258,7 @@ export class Casino {
         console.log(`4️⃣4 Iniciar Tragamoneda Lucky`);
         console.log(`5️⃣5 volver`);
         
-        const opcion = readlineSync.question(chalk.blue("Seleccione un juego: ")); 
+        const opcion:string = readlineSync.question(chalk.blue("Seleccione un juego: ")); 
     
         switch(opcion){
             case "1":
@@ -284,14 +284,14 @@ export class Casino {
       }
     }
 
-    public menuInstrucciones(cliente:Cliente){
+    public menuInstrucciones(cliente:Cliente): void {
         console.log(`1️⃣1 Instrucciones juego: Dado 🎲`);
         console.log(`2️⃣2 Instrucciones juego: Ruleta 🎡`);
         console.log(`3️⃣3 Instrucciones juegos: Tragamonedas 🎰`);
         console.log(`4️⃣4 volver`);
     
     
-        const opcion = readlineSync.question(chalk.blue("Ingrese una opcion: ")); 
+        const opcion:string = readlineSync.question(chalk.blue("Ingrese una opcion: ")); 
         
         switch(opcion){
             case "1":
@@ -313,7 +313,7 @@ export class Casino {
        this.menuInstrucciones(cliente);
     }
 
-    public menu(cliente:Cliente): void{
+    public menu(cliente:Cliente): void {
         console.log("");
 
         console.log("#########################################################################"); 
@@ -329,12 +329,12 @@ export class Casino {
     
         console.log("-----------------------------------------------------------------"); 
         //Leer opcion del cliente
-        const opcion = readlineSync.question(chalk.yellow("Elige una opcion: ")); 
+        const opcion:string = readlineSync.question(chalk.yellow("Elige una opcion: ")); 
     
         switch(opcion){
             case "1":
             //Opcion de recarga
-            const recargaSaldo = readlineSync.questionInt(chalk.yellow("Cuanto dinero desea ingresar a su cuenta?: ")); 
+            const recargaSaldo:number = readlineSync.questionInt(chalk.yellow("Cuanto dinero desea ingresar a su cuenta?: ")); 
             cliente.agregarSaldo(recargaSaldo);
                 break
             case "2":
@@ -356,7 +356,7 @@ export class Casino {
                     const clientesTxt: { nombre: string, edad: number, dni: string, saldo: number }[] = JSON.parse(data);
                 
                     // Buscar el cliente en el array usando el DNI
-                    let clienteIndex = clientesTxt.findIndex((c) => c.dni == cliente.getDni());
+                    let clienteIndex:number = clientesTxt.findIndex((c) => c.dni == cliente.getDni());
                 
                     if (clienteIndex == -1) {
                         console.log("");
@@ -386,7 +386,7 @@ export class Casino {
 
     public instruccionesDado(): void {
         try {
-            const data = fs.readFileSync('dado.txt', 'utf-8');
+            const data:string = fs.readFileSync('dado.txt', 'utf-8');
     
             console.log(data);
     
@@ -397,7 +397,7 @@ export class Casino {
 
     public instruccionesRuleta(): void {
         try {
-            const data = fs.readFileSync('ruleta.txt', 'utf-8');
+            const data:string = fs.readFileSync('ruleta.txt', 'utf-8');
     
             console.log(data);
     
@@ -408,7 +408,7 @@ export class Casino {
 
     public instruccionesTragamoneda(): void {
         try {
-            const data = fs.readFileSync('tragamonedas.txt', 'utf-8');
+            const data:string = fs.readFileSync('tragamonedas.txt', 'utf-8');
     
             console.log(data);
     
@@ -417,41 +417,41 @@ export class Casino {
         }
     }
     
-    public crearRuleta(cliente:Cliente){
-        const ruleta = new Ruleta(cliente);
+    public crearRuleta(cliente:Cliente): void {
+        const ruleta:Ruleta = new Ruleta(cliente);
         ruleta.iniciarJuego();
         ruleta.jugar(); 
         cliente.getSaldo();
     }
     
-    public crearDado(cliente:Cliente){
-    const dado = new Dado(cliente);
+    public crearDado(cliente:Cliente): void {
+    const dado:Dado = new Dado(cliente);
     dado.iniciarJuego();
     dado.jugar();
     cliente.getSaldo();
     }
 
-    public crearTragamonedaLucky(cliente:Cliente){
-    const tragamoneda = new TragamonedaLucky(cliente);
+    public crearTragamonedaLucky(cliente:Cliente): void {
+    const tragamoneda:TragamonedaLucky = new TragamonedaLucky(cliente);
     tragamoneda.iniciarJuego();
     tragamoneda.jugar();
     cliente.getSaldo();
     }
 
-    public crearTragamonedaFruit(cliente:Cliente){
-    const tragamoneda = new TragamonedaFruit(cliente);
+    public crearTragamonedaFruit(cliente:Cliente): void{
+    const tragamoneda:TragamonedaFruit = new TragamonedaFruit(cliente);
     tragamoneda.iniciarJuego();
     tragamoneda.jugar();
     cliente.getSaldo();
     }
 
-    public retirarDinero(cliente:Cliente){
-        const retirarDinero = readlineSync.questionInt ("Ingrese el monto a retirar: ");
+    public retirarDinero(cliente:Cliente): void{
+        const retirarDinero:number = readlineSync.questionInt ("Ingrese el monto a retirar: ");
         if (retirarDinero < 0){
             console.log ("Ingrese un valor positivo");
             this.retirarDinero(cliente);
         }
-        const confirmacion = readlineSync.question ("Desea confirmar? si/no: ").toLowerCase();
+        const confirmacion:string = readlineSync.question ("Desea confirmar? si/no: ").toLowerCase();
     
         if(confirmacion == "si" && retirarDinero <= cliente.getSaldo()){
             cliente.setSaldo(cliente.getSaldo()- retirarDinero); 

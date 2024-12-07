@@ -23,7 +23,7 @@ export class TragamonedaFruit extends Tragamoneda {
     }
 
     public realizarApuesta(): number {
-        let apuesta = readlineSync.questionInt("💰 Ingrese apuesta: ");
+        let apuesta:number = readlineSync.questionInt("💰 Ingrese apuesta: ");
         if (this.cliente) {
             if (apuesta > this.cliente.getSaldo()) {
                 console.log("❌ Saldo insuficiente!");

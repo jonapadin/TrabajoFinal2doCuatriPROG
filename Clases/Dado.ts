@@ -12,7 +12,11 @@ export class Dado extends Maquina {
         this.cliente = cliente;
     }
 
-    public tirarDado() {
+    public iniciarJuego(): void {
+        console.log(`El juego ${this.nombre} se esta iniciando...`);
+    }
+
+    public generarResultado(): void { 
         const apuesta = this.realizarApuesta();
         console.log("Lanzando el dado ... ");
         const resultado = Math.floor(Math.random() * 6) + 1;
@@ -26,14 +30,6 @@ export class Dado extends Maquina {
         }
     }
 
-
-
-    public iniciarJuego(): void {
-        console.log(`El juego ${this.nombre} se esta iniciando...`);
-    }
-
-    public generarResultado(): void { }
-
     public realizarApuesta(): number {
         let opcion: number;
         do {
@@ -43,8 +39,9 @@ export class Dado extends Maquina {
         return opcion;
     }
 
-    public mostrarSaldo(): void { }
-
+    public mostrarSaldo(): void {
+        console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
+     }
 
     public jugar(): void {
         let seguirJugando = true;
@@ -52,7 +49,7 @@ export class Dado extends Maquina {
         while (seguirJugando) {
             console.clear();
             this.iniciarJuego(); //interface
-            this.tirarDado();
+            this.generarResultado();
             this.mostrarSaldo();
             const seguir = readlineSync.keyInYN("Queres jugar de nuevo o Salir ? "); //apretar y o n para seguir
             if (!seguir) {
@@ -60,9 +57,5 @@ export class Dado extends Maquina {
                 seguirJugando = false;
             }
         }
-    }
-
-    public mostrarResultado() {//interface
-
     }
 }   

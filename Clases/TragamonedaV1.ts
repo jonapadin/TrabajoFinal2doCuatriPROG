@@ -23,7 +23,7 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
     public realizarApuesta(): number {
-        let apuesta = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
+        let apuesta:number = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
         if (apuesta >= 1 && apuesta <= 10) {
             console.log(`✔ Apuesta aceptada: ${apuesta}`);
         } else {
@@ -48,7 +48,7 @@ export class TragamonedaLucky extends Tragamoneda {
 
     // Método para verificar si el valor ingresado es parte de una combinación ganadora
     public juegoGanador(): boolean {
-        const apuesta = this.realizarApuesta();
+        const apuesta:number = this.realizarApuesta();
         
         if (this.valor1 == apuesta && this.valor2 == apuesta && this.valor3 == apuesta) {
             console.log(`🎉¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
@@ -56,7 +56,7 @@ export class TragamonedaLucky extends Tragamoneda {
             return true; 
         }
         // Comprobamos si al menos dos rodillos tienen el valor
-        let contador = 0;
+        let contador:number = 0;
         if (this.valor1 == apuesta) contador++;
         if (this.valor2 == apuesta) contador++;
         if (this.valor3 == apuesta) contador++;
@@ -100,7 +100,7 @@ export class TragamonedaLucky extends Tragamoneda {
 
     }
 
-    public mostrarSaldo() {
+    public mostrarSaldo(): void {
     if (this.cliente) {
         console.log(`💰 Tu saldo es: ${this.cliente.getSaldo()}`);
     } else {

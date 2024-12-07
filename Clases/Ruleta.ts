@@ -32,7 +32,7 @@ export class Ruleta extends Maquina {
        console.log("2- 🎨 Apuesta por Color");
        console.log("3- 🕹️  Par o impar");
        
-       let opcion = readlineSync.questionInt("Seleccione Apuesta: ")
+       let opcion:number = readlineSync.questionInt("Seleccione Apuesta: ")
        switch(opcion) {
             case 1:
                 console.log("La apuesta mínima es de: ", this.apuestaMinima);
@@ -66,11 +66,11 @@ export class Ruleta extends Maquina {
                             this.jugar(); 
                         }
                     }               
-                    const resultadoRuleta = this.generarResultado();
+                    const resultadoRuleta:number = this.generarResultado();
                     console.log(`🎡 El resultado de la ruleta es: ${resultadoRuleta}`);
                 
                     // Verificar si el cliente ganó
-                    let gano = false;
+                    let gano:boolean = false;
                     for (let i = 0; i < this.numerosSeleccionados.length; i++) {
                         if (resultadoRuleta == this.numerosSeleccionados[i]) {
                             console.log(`🎉 ¡Tu jugada fue GANADORA! El número ${this.numerosSeleccionados[i]} salió en la ruleta.`);
@@ -90,9 +90,9 @@ export class Ruleta extends Maquina {
             break
             case 2:
                 if(this.cliente) {
-                    let respuesta = readlineSync.question("Elige un color a apostar (ROJO/NEGRO): ").toUpperCase();
+                    let respuesta:string = readlineSync.question("Elige un color a apostar (ROJO/NEGRO): ").toUpperCase();
                     console.log("💰La apuesta minima es de: ", this.apuestaMinima);
-                    let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
+                    let apuesta:number = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
                     if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
 
                        while(respuesta != "NEGRO" && respuesta != "ROJO" ) {
@@ -100,7 +100,7 @@ export class Ruleta extends Maquina {
 
                         respuesta = readlineSync.question("Elige un color a apostar(ROJO/NEGRO): ").toUpperCase();
                        }
-                       const resultadoRuleta = this.generarResultado();
+                       const resultadoRuleta:number = this.generarResultado();
 
                        if(resultadoRuleta == 0 ) {
                         console.log("😥!Perdiste la bola ha caido en el 0! 🟩");
@@ -137,9 +137,9 @@ export class Ruleta extends Maquina {
             break
             case 3:     
             if(this.cliente) {
-                let respuesta = readlineSync.question("Ingrese si desea apostar PAR/IMPAR: ").toUpperCase()
+                let respuesta:string = readlineSync.question("Ingrese si desea apostar PAR/IMPAR: ").toUpperCase()
                 console.log("La apuesta minima es de: ", this.apuestaMinima)
-                let apuesta = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
+                let apuesta:number = readlineSync.questionInt("Ingrese monto de apuesta que desee: ");
                 if (apuesta >= this.apuestaMinima && apuesta <= this.cliente.getSaldo()) {
 
 
@@ -149,7 +149,7 @@ export class Ruleta extends Maquina {
                         respuesta = readlineSync.question("Elige un valor a apostar (PAR/IMPAR): ").toUpperCase();
                     }
 
-                    const resultadoRuleta = this.generarResultado();
+                    const resultadoRuleta:number = this.generarResultado();
 
                     if(resultadoRuleta == 0 ) {
                         console.log("😥 !Perdiste la bola ha caido en el 0");
@@ -185,7 +185,7 @@ export class Ruleta extends Maquina {
     } 
     } 
       
-    public generarResultado() {
+    public generarResultado():number {
         this.bola = Math.floor(Math.random() * 2);
 
         if (this.bola == this.numeroVerde) {
@@ -203,7 +203,7 @@ export class Ruleta extends Maquina {
     }
  
     public  realizarApuesta(): number {
-        let apuesta = readlineSync.questionInt("Ingrese el numero a apostar:  ")
+        let apuesta:number = readlineSync.questionInt("Ingrese el numero a apostar:  ")
         if (apuesta >= 0 && apuesta <= 36) {
             console.log(apuesta)
         } else {
