@@ -178,7 +178,7 @@ export class Casino {
             }
     
 
-            if (intentos === 3) {
+            if (intentos == 3) {
                 console.log(chalk.red("❌ Alcanzaste el límite de intentos, vuelve a intentarlo mas tarde."));
                 return;
             }
@@ -193,8 +193,8 @@ export class Casino {
             const clientesData = fs.readFileSync('clientes.txt', 'utf-8'); 
             const clientes = JSON.parse(clientesData);
     
-            const cliente = clientes.find((cliente: { dni: string }) => cliente.dni === dni);
-            return cliente !== undefined;
+            const cliente = clientes.find((cliente: { dni: string }) => cliente.dni == dni);
+            return cliente != undefined;
         } catch (error) {
             console.log(chalk.red("Error al leer archivo de clientes: ", error));
             return false;
