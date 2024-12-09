@@ -23,7 +23,7 @@ export class TragamonedaLucky extends Tragamoneda {
     }
 
     public realizarApuesta(): number {
-        let apuesta:number = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
+        let apuesta: number = readlineSync.questionInt("Ingrese el número a apostar (1-10): ");
         if (apuesta >= 1 && apuesta <= 10) {
             console.log(`✔ Apuesta aceptada: ${apuesta}`);
         } else {
@@ -35,7 +35,7 @@ export class TragamonedaLucky extends Tragamoneda {
 
     // Generar un resultado aleatorio
     public generarResultado(): void {
-        if( this.valoresPosibles.length == 0) {
+        if (this.valoresPosibles.length == 0) {
             console.error("❌ Maquina fuera de servicio!");
             return;
         }
@@ -43,20 +43,20 @@ export class TragamonedaLucky extends Tragamoneda {
         this.valor1 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
         this.valor2 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
         this.valor3 = this.valoresPosibles[Math.floor(Math.random() * this.valoresPosibles.length)];
-         console.log(`🎰 Combinación generada: ${this.valor1}, ${this.valor2}, ${this.valor3}`);
+        console.log(`🎰 Combinación generada: ${this.valor1}, ${this.valor2}, ${this.valor3}`);
     }
 
     // Método para verificar si el valor ingresado es parte de una combinación ganadora
     public juegoGanador(): boolean {
-        const apuesta:number = this.realizarApuesta();
-        
+        const apuesta: number = this.realizarApuesta();
+
         if (this.valor1 == apuesta && this.valor2 == apuesta && this.valor3 == apuesta) {
             console.log(`🎉¡Has ganado! La combinación completa de ${apuesta} es ganadora.`);
             this.cliente?.agregarSaldo(this.apuestaMinima * 2); // Agrega saldo al cliente
-            return true; 
+            return true;
         }
         // Comprobamos si al menos dos rodillos tienen el valor
-        let contador:number = 0;
+        let contador: number = 0;
         if (this.valor1 == apuesta) contador++;
         if (this.valor2 == apuesta) contador++;
         if (this.valor3 == apuesta) contador++;
@@ -65,46 +65,46 @@ export class TragamonedaLucky extends Tragamoneda {
         if (contador >= 1) {
             console.log(`🎉¡Has ganado parcialmente! El valor ${apuesta} aparece en ${contador} rodillo(s).`);
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
-            return true; 
-        }   
+            return true;
+        }
         console.log(`😥 Lo siento, el valor ${apuesta} no está en la combinación.`);
-        if(this.cliente) {
+        if (this.cliente) {
             this.cliente?.apostar(this.apuestaMinima); // Descuenta la apuesta
             return true;
-        }  else {
+        } else {
             console.log("❌ No existe el cliente")
             return false
         }
     }
 
     public jugar(): void {
-        if(this.cliente) {
+        if (this.cliente) {
 
 
-                console.clear();
-                this.iniciarJuego();
+            console.clear();
+            this.iniciarJuego();
+            this.generarResultado();
+            this.juegoGanador();
+            this.mostrarSaldo();
+
+            let seguirJugando: boolean = true;
+            let pregunta: string = readlineSync.question("Deseas seguir jugando?: ").toLowerCase();
+            if (pregunta == "si") {
                 this.generarResultado();
                 this.juegoGanador();
                 this.mostrarSaldo();
-    
-                let seguirJugando:boolean = true;
-                let pregunta:string = readlineSync.question("Deseas seguir jugando?: ").toLowerCase();
-                if(pregunta == "si") {
-                    this.generarResultado();
-                    this.juegoGanador();
-                    this.mostrarSaldo();
-                } else if(pregunta == "no") {
-                    seguirJugando = false;
-                }
+            } else if (pregunta == "no") {
+                seguirJugando = false;
+            }
         }
 
     }
 
     public mostrarSaldo(): void {
-    if (this.cliente) {
-        console.log(`💰 Tu saldo es: ${this.cliente.getSaldo()}`);
-    } else {
-        console.log("❌ No hay un cliente asociado.");
+        if (this.cliente) {
+            console.log(`💰 Tu saldo es: ${this.cliente.getSaldo()}`);
+        } else {
+            console.log("❌ No hay un cliente asociado.");
+        }
     }
-    }
-}
+}        

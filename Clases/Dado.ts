@@ -16,12 +16,12 @@ export class Dado extends Maquina {
         console.log(`El juego ${this.nombre} se esta iniciando...`);
     }
 
-    public generarResultado(): void { 
+    public generarResultado(): void {
         const apuesta = this.realizarApuesta();
         console.log("Lanzando el dado ... ");
         const resultado = Math.floor(Math.random() * 6) + 1;
         console.log(`El resultado es: ${resultado}`);
-        if (apuesta === resultado) {
+        if (apuesta == resultado) {
             console.log("Felicitaciones! usted gano ...");
             this.cliente?.agregarSaldo(this.apuestaMinima * 2) //agrego el saldo ganador 
         } else {
@@ -41,7 +41,7 @@ export class Dado extends Maquina {
 
     public mostrarSaldo(): void {
         console.log(`Saldo actual: ${this.cliente?.getSaldo()}`);
-     }
+    }
 
     public jugar(): void {
         let seguirJugando = true;

@@ -3,9 +3,9 @@ import { Maquina } from "./Maquina";
 
 export abstract class Tragamoneda extends Maquina {
     private apuesta: number;
-    protected cliente? : Cliente;
-    
-    constructor(nombre: string, apuestaMinima: number, cliente?:Cliente) {
+    protected cliente?: Cliente;
+
+    constructor(nombre: string, apuestaMinima: number, cliente?: Cliente) {
         super(nombre, apuestaMinima);
         this.apuesta = 0;
         this.cliente = cliente;
@@ -19,10 +19,10 @@ export abstract class Tragamoneda extends Maquina {
 
         console.log("🎰 Generando el resultado...");
     }
-     
+
     public jugar(): void {
 
-        if(this.cliente) {
+        if (this.cliente) {
             if (this.cliente?.getSaldo() < this.apuestaMinima) {
                 console.log("❌ Saldo insuficiente para jugar.");
                 return;
@@ -32,7 +32,7 @@ export abstract class Tragamoneda extends Maquina {
 
     public realizarApuesta(): number {
         console.log("💰 Realizando apuesta...");
-        this.apuesta = this.apuestaMinima;  
+        this.apuesta = this.apuestaMinima;
         return this.apuesta;
     }
 
@@ -40,7 +40,7 @@ export abstract class Tragamoneda extends Maquina {
         console.log("💰 Saldo actual: " + this.cliente?.getSaldo());
     }
 
-       public validarSaldo(saldo: number): number {
+    public validarSaldo(saldo: number): number {
         if (saldo < this.apuestaMinima) {
             console.log("❌ Saldo insuficiente.");
             return 0;
