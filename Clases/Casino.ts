@@ -62,7 +62,7 @@ export class Casino {
                 // Manejar opciones
                 switch (opcion) {
                     case "1":
-                        this.menuRegistro();
+                        this.crearCliente();
                         break;
                     case "2":
                         this.menuIniciarSesion();
@@ -71,18 +71,13 @@ export class Casino {
                         console.log("Gracias por visitar el casino. ¡Hasta luego!");
                         return;
                     default:
-                        console.log("Operación no válida. Intente de nuevo.");
+                        console.log("Operacion no valida. Intente de nuevo.");
                         this.menuPrincipal();
                 }
             }
         );
     }
 
-    //Registro de cliente
-    public menuRegistro(): void {
-        this.crearCliente()
-
-    }
 
     public crearCliente(cliente?: Cliente | null): void {
         let data: string;
@@ -165,21 +160,45 @@ export class Casino {
         }
     }
 
-    public menuIniciarSesion(dado?: Dado, ruleta?: Ruleta, tragamoneda1?: TragamonedaFruit, tragamoneda2?: TragamonedaLucky): void {
+    public menuIniciarSesion(): void {
         console.log("");
         let dniUsuario: string = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
         let intentos: number = 1;
-        while (!dniUsuario || intentos == 2) {
-            console.log("");
-            readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
-            if (intentos == 3) {
-                console.log("");
-                console.log(chalk.red("❌ Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde!"))
-                return
+        while (!dniUsuario || intentos <= 3) {
+            if (intentos > 1) {
+                console.log(chalk.yellow(`Intento ${intentos} de 3 fallido.`));
             }
-            intentos++
+    
+            dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
+            
+            if (this.validarDni(dniUsuario)) {
+                console.log(chalk.green("¡Bienvenido! El DNI es valido."));
+                this.seleccionarUsuario(dniUsuario); 
+                return; 
+            }
+    
+
+            if (intentos === 3) {
+                console.log(chalk.red("❌ Alcanzaste el límite de intentos, vuelve a intentarlo mas tarde."));
+                return;
+            }
+    
+            intentos++;
         }
         this.seleccionarUsuario(dniUsuario);
+    }
+
+    private validarDni(dni: string): boolean {
+        try {
+            const clientesData = fs.readFileSync('clientes.txt', 'utf-8'); 
+            const clientes = JSON.parse(clientesData);
+    
+            const cliente = clientes.find((cliente: { dni: string }) => cliente.dni === dni);
+            return cliente !== undefined;
+        } catch (error) {
+            console.log(chalk.red("Error al leer archivo de clientes: ", error));
+            return false;
+        }
     }
 
     public registrarCliente(nombreUsuario: string, edad: number, dni: string): void {
@@ -190,13 +209,13 @@ export class Casino {
 
     public guardarEnArchivo(nombreArchivo: string, datos: any[]): void {
         try {
-            // Convertir los datos a formato JSON
+
             const contenido = JSON.stringify(datos, null, 2); // El "2" es para formatear el JSON con indentación para que sea legible
 
 
             fs.writeFileSync(nombreArchivo, contenido, 'utf8');
             console.log("");
-            console.log(chalk.green(`✅ El archivo se guardó correctamente como ${nombreArchivo}`));
+            console.log(chalk.green(`✅ El archivo se guardo correctamente como ${nombreArchivo}`));
         } catch (err) {
             console.log("");
             console.error(chalk.bgRed("Hubo un error al guardar el archivo: ", err));
@@ -205,25 +224,23 @@ export class Casino {
 
     public seleccionarUsuario(dni: string): void {
         try {
-            // Leer el archivo de manera sincrónica
+  
             const data: string = fs.readFileSync('clientes.txt', 'utf-8');
 
-            // Parsear los datos a JSON
+
             const clienteTxt: { nombre: string; edad: number; dni: string, saldo: number }[] = JSON.parse(data);
 
-            // Mapear a instancias de Cliente
             const clientes: Cliente[] = clienteTxt.map(
                 (cliente) => new Cliente(cliente.nombre, cliente.edad, cliente.dni, cliente.saldo)
             );
 
-            // Buscar el cliente por DNI
+
             const cliente = clientes.find((v) => v.getDni() == dni);
 
             if (cliente) {
 
                 console.log(chalk.bgBlue(`✨ Bienvenido ${cliente.getNombre()} seras redirigido al casino! ✨`));
-                // Aquí puedes redirigir al menú principal del casino para clientes registrados
-                this.menu(cliente); // Asegúrate de tener implementado este método en Casino
+                this.menu(cliente); 
 
             } else {
                 console.log("");
@@ -328,12 +345,12 @@ export class Casino {
         console.log(`5️⃣5 Cerrar sesion`);
 
         console.log("-----------------------------------------------------------------");
-        //Leer opcion del cliente
+
         const opcion: string = readlineSync.question(chalk.yellow("Elige una opcion: "));
 
         switch (opcion) {
             case "1":
-                //Opcion de recarga
+
                 const recargaSaldo: number = readlineSync.questionInt(chalk.yellow("Cuanto dinero desea ingresar a su cuenta?: "));
                 cliente.agregarSaldo(recargaSaldo);
                 break
@@ -364,7 +381,7 @@ export class Casino {
                         return;
                     }
                     // Actualizamos el saldo del cliente
-                    clientesTxt[clienteIndex].saldo = cliente.getSaldo(); // Actualizamos el saldo con el nuevo valor
+                    clientesTxt[clienteIndex].saldo = cliente.getSaldo(); 
 
                     // Escribir los datos modificados de nuevo en el archivo
                     fs.writeFile("clientes.txt", JSON.stringify(clientesTxt, null, 2), (err) => {
