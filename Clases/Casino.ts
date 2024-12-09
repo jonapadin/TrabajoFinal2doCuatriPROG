@@ -164,28 +164,22 @@ export class Casino {
         console.log("");
         let dniUsuario: string = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
         let intentos: number = 1;
-        while (!dniUsuario || intentos <= 3) {
+
+        while (!this.validarDni(dniUsuario) && intentos < 3) {
             if (intentos > 1) {
                 console.log(chalk.yellow(`Intento ${intentos} de 3 fallido.`));
             }
-    
-            dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
             
-            if (this.validarDni(dniUsuario)) {
-                console.log(chalk.green("¡Bienvenido! El DNI es valido."));
-                this.seleccionarUsuario(dniUsuario); 
-                return; 
-            }
-    
-
-            if (intentos == 3) {
-                console.log(chalk.red("❌ Alcanzaste el límite de intentos, vuelve a intentarlo mas tarde."));
-                return;
-            }
-    
+            dniUsuario = readlineSync.question(chalk.yellow("Ingrese su DNI para iniciar sesion: "));
             intentos++;
         }
-        this.seleccionarUsuario(dniUsuario);
+        
+        if (this.validarDni(dniUsuario)) {
+            console.log(chalk.green("¡Bienvenido! El DNI es valido."));
+            this.seleccionarUsuario(dniUsuario);
+        } else {
+            console.log(chalk.red("❌ Alcanzaste el limite de intentos, vuelve a intentarlo mas tarde."));
+        }
     }
 
     public validarDni(dni: string): boolean {
