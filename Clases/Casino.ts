@@ -188,7 +188,7 @@ export class Casino {
         this.seleccionarUsuario(dniUsuario);
     }
 
-    private validarDni(dni: string): boolean {
+    public validarDni(dni: string): boolean {
         try {
             const clientesData = fs.readFileSync('clientes.txt', 'utf-8'); 
             const clientes = JSON.parse(clientesData);
